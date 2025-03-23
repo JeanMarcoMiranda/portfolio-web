@@ -1,0 +1,107 @@
+---
+const pathname = new URL(Astro.url.href).pathname;
+const isActive = (path: string) =>
+  pathname === path || pathname.startsWith(path + "/");
+
+const navItems = [
+  { href: "/about", label: "Sobre mí" },
+  { href: "/projects", label: "Proyectos" },
+  { href: "/blog", label: "Blog" },
+  { href: "/contact", label: "Contacto" },
+];
+---
+
+<div class="flex gap-6 md:gap-10">
+  <nav class="hidden md:flex gap-6">
+    {
+      navItems.map((item) => (
+        <a
+          href={item.href}
+          class={`text-sm font-medium transition-colors hover:text-foreground ${
+            isActive(item.href) ? "text-foreground" : "text-muted-foreground"
+          }`}
+        >
+          {item.label}
+        </a>
+      ))
+    }
+  </nav>
+
+  <button class="flex items-center space-x-2 md:hidden" id="mobile-menu-button">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <line x1="4" x2="20" y1="12" y2="12"></line>
+      <line x1="4" x2="20" y1="6" y2="6"></line>
+      <line x1="4" x2="20" y1="18" y2="18"></line>
+    </svg>
+    <span class="sr-only">Menu</span>
+  </button>
+</div>
+
+<div
+  id="mobile-menu"
+  class="fixed inset-0 z-50 flex flex-col bg-background md:hidden"
+  style="opacity: 0; pointer-events: none; transition: opacity 0.3s ease;"
+>
+  <div class="flex items-center justify-between p-4 border-b">
+    <a href="/" class="flex items-center space-x-2">
+      <span class="font-bold text-xl">JM</span>
+    </a>
+    <button id="close-mobile-menu">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M18 6 6 18"></path>
+        <path d="m6 6 12 12"></path>
+      </svg>
+      <span class="sr-only">Cerrar</span>
+    </button>
+  </div>
+  <nav class="flex flex-col gap-6 p-6">
+    {
+      navItems.map((item) => (
+        <a
+          href={item.href}
+          class={`text-lg font-medium transition-colors hover:text-foreground ${
+            isActive(item.href) ? "text-foreground" : "text-muted-foreground"
+          }`}
+        >
+          {item.label}
+        </a>
+      ))
+    }
+  </nav>
+</div>
+
+<script>
+  const mobileMenuButton = document.getElementById("mobile-menu-button");
+  const closeMenuButton = document.getElementById("close-mobile-menu");
+  const mobileMenu = document.getElementById("mobile-menu");
+
+  mobileMenuButton?.addEventListener("click", () => {
+    mobileMenu?.style.setProperty("opacity", "1");
+    mobileMenu?.style.setProperty("pointer-events", "auto");
+  });
+
+  closeMenuButton?.addEventListener("click", () => {
+    mobileMenu?.style.setProperty("opacity", "0");
+    mobileMenu?.style.setProperty("pointer-events", "none");
+  });
+</script>
