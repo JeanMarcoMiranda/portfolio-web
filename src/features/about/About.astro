@@ -1,0 +1,244 @@
+--- // AboutMe.astro
+import { Image } from 'astro:assets';
+
+// Puedes personalizar estos datos según tu información
+const personalInfo = {
+  name: "Tu Nombre",
+  title: "Desarrollador Web Full Stack",
+  description: "Apasionado por crear experiencias web excepcionales utilizando tecnologías modernas como Astro, React, Tailwind CSS y más. Disfruto resolviendo problemas complejos y convertir ideas en productos digitales elegantes y funcionales.",
+  location: "Ciudad, País",
+  email: "tu@email.com",
+  availability: "Disponible para proyectos freelance",
+};
+
+const skills = [
+  { name: "Frontend", items: ["HTML/CSS", "JavaScript", "TypeScript", "React", "Vue", "Astro", "Tailwind CSS"] },
+  { name: "Backend", items: ["Node.js", "Express", "Python", "Django", "PHP", "SQL", "NoSQL"] },
+  { name: "Herramientas", items: ["Git", "Docker", "AWS", "Vercel", "Netlify", "Figma", "Adobe XD"] },
+];
+
+const experiences = [
+  {
+    title: "Desarrollador Frontend Senior",
+    company: "Empresa XYZ",
+    period: "2023 - Presente",
+    description: "Desarrollo de aplicaciones web modernas utilizando React, TypeScript y Tailwind CSS. Implementación de arquitecturas escalables y rendimiento optimizado."
+  },
+  {
+    title: "Desarrollador Web Full Stack",
+    company: "Startup ABC",
+    period: "2020 - 2023",
+    description: "Creación de productos digitales desde cero, colaborando en equipos ágiles y entregando soluciones end-to-end."
+  },
+  {
+    title: "Desarrollador Frontend Junior",
+    company: "Agencia Digital",
+    period: "2018 - 2020",
+    description: "Maquetación de sitios web responsivos y desarrollo de interfaces interactivas."
+  }
+];
+
+const education = [
+  {
+    degree: "Ingeniería en Sistemas / Informática",
+    institution: "Universidad XYZ",
+    year: "2014 - 2018",
+  },
+  {
+    degree: "Certificación en Desarrollo Web Full Stack",
+    institution: "Plataforma de Educación Online",
+    year: "2019",
+  }
+];
+
+const interests = ["Programación", "Diseño UX/UI", "Inteligencia Artificial", "Blockchain", "Fotografía", "Viajes", "Música"];
+
+// Imports dinamicos para los iconos (puedes personalizarlos)
+---
+
+<section id="about" class="py-20 bg-gradient-to-b from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
+  <div class="container mx-auto px-4">
+    <!-- Header con animación al entrar en viewport -->
+    <div class="flex flex-col items-center mb-16 opacity-0 translate-y-4 transition-all duration-700 ease-out" 
+         id="about-header">
+      <h2 class="text-5xl font-bold text-slate-800 dark:text-white mb-4">Sobre Mí</h2>
+      <div class="w-20 h-1 bg-indigo-600 rounded-full mb-8"></div>
+      <p class="text-xl text-slate-600 dark:text-slate-300 text-center max-w-2xl">
+        {personalInfo.description}
+      </p>
+    </div>
+
+    <!-- Perfil y Detalles -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-20">
+      <!-- Columna Izquierda: Foto y Detalles de Contacto -->
+      <div class="lg:col-span-4 space-y-8 opacity-0 translate-x-[-20px] transition-all duration-700 ease-out delay-300" id="about-profile">
+        <div class="relative group">
+          <div class="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl blur opacity-25 group-hover:opacity-75 transition duration-300"></div>
+          <div class="relative bg-white dark:bg-slate-800 p-6 rounded-lg shadow-xl">
+            <!-- Sustituye con tu foto real -->
+            <div class="aspect-square bg-slate-200 dark:bg-slate-700 rounded-lg mb-6 overflow-hidden">
+              <div class="w-full h-full flex items-center justify-center text-slate-400 dark:text-slate-500">
+                <span class="text-6xl">📷</span>
+              </div>
+            </div>
+
+            <h3 class="text-2xl font-bold text-slate-800 dark:text-white mb-2">{personalInfo.name}</h3>
+            <p class="text-indigo-600 dark:text-indigo-400 font-medium mb-4">{personalInfo.title}</p>
+            
+            <div class="space-y-3 text-slate-600 dark:text-slate-300">
+              <div class="flex items-center">
+                <span class="mr-2">📍</span>
+                <span>{personalInfo.location}</span>
+              </div>
+              <div class="flex items-center">
+                <span class="mr-2">📧</span>
+                <a href={`mailto:${personalInfo.email}`} class="text-indigo-600 dark:text-indigo-400 hover:underline transition">{personalInfo.email}</a>
+              </div>
+              <div class="flex items-center">
+                <span class="mr-2">🟢</span>
+                <span>{personalInfo.availability}</span>
+              </div>
+            </div>
+
+            <!-- Botón de Descarga CV -->
+            <button class="mt-6 w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 px-6 rounded-lg shadow-md transition-all flex items-center justify-center group">
+              <span class="mr-2 group-hover:mr-3 transition-all">Descargar CV</span>
+              <span>⬇️</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Social Links -->
+        <div class="flex justify-center space-x-4">
+          <a href="#" class="h-12 w-12 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-slate-700 dark:text-slate-300 hover:bg-indigo-600 hover:text-white transition-all">
+            <span>🌐</span>
+          </a>
+          <a href="#" class="h-12 w-12 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-slate-700 dark:text-slate-300 hover:bg-indigo-600 hover:text-white transition-all">
+            <span>💼</span>
+          </a>
+          <a href="#" class="h-12 w-12 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-slate-700 dark:text-slate-300 hover:bg-indigo-600 hover:text-white transition-all">
+            <span>🐙</span>
+          </a>
+          <a href="#" class="h-12 w-12 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-slate-700 dark:text-slate-300 hover:bg-indigo-600 hover:text-white transition-all">
+            <span>🐦</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Columna Derecha: Experiencia y Contenido -->
+      <div class="lg:col-span-8 space-y-12">
+        <!-- Experiencias -->
+        <div class="opacity-0 translate-y-4 transition-all duration-700 ease-out delay-500" id="about-experience">
+          <h3 class="text-2xl font-bold text-slate-800 dark:text-white mb-6 flex items-center">
+            Experiencia Profesional
+          </h3>
+          <div class="space-y-6">
+            {experiences.map((exp, index) => (
+              <div class="relative pl-8 pb-6 border-l-2 border-slate-200 dark:border-slate-700 group" data-index={index}>
+                <div class="absolute left-[-9px] top-0 h-4 w-4 rounded-full bg-slate-200 dark:bg-slate-700 group-hover:bg-indigo-600 transition-colors"></div>
+                <h4 class="text-xl font-semibold text-slate-800 dark:text-white">{exp.title}</h4>
+                <div class="flex items-center text-slate-600 dark:text-slate-400 mb-2">
+                  <span>{exp.company}</span>
+                  <span class="mx-2">•</span>
+                  <span>{exp.period}</span>
+                </div>
+                <p class="text-slate-600 dark:text-slate-300">{exp.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Educación -->
+        <div class="opacity-0 translate-y-4 transition-all duration-700 ease-out delay-700" id="about-education">
+          <h3 class="text-2xl font-bold text-slate-800 dark:text-white mb-6 flex items-center">
+            Educación
+          </h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {education.map(edu => (
+              <div class="bg-white dark:bg-slate-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition-all">
+                <h4 class="text-lg font-semibold text-slate-800 dark:text-white mb-2">{edu.degree}</h4>
+                <p class="text-slate-600 dark:text-slate-300">{edu.institution}</p>
+                <p class="text-slate-500 dark:text-slate-400 text-sm">{edu.year}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Habilidades -->
+        <div class="opacity-0 translate-y-4 transition-all duration-700 ease-out delay-900" id="about-skills">
+          <h3 class="text-2xl font-bold text-slate-800 dark:text-white mb-6 flex items-center">
+            Habilidades Técnicas
+          </h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {skills.map(category => (
+              <div class="bg-white dark:bg-slate-800 p-6 rounded-lg shadow-lg">
+                <h4 class="text-lg font-semibold text-slate-800 dark:text-white mb-4 text-center">{category.name}</h4>
+                <div class="flex flex-wrap gap-2">
+                  {category.items.map(skill => (
+                    <span class="px-3 py-1 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-full text-sm">{skill}</span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Intereses -->
+        <div class="opacity-0 translate-y-4 transition-all duration-700 ease-out delay-1000" id="about-interests">
+          <h3 class="text-2xl font-bold text-slate-800 dark:text-white mb-6 flex items-center">
+            Intereses
+          </h3>
+          <div class="flex flex-wrap gap-3">
+            {interests.map(interest => (
+              <span class="px-4 py-2 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-full text-sm font-medium">{interest}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Testimonios o Cita Personal -->
+    <div class="opacity-0 transition-all duration-700 ease-out delay-1000" id="about-quote">
+      <div class="max-w-4xl mx-auto bg-indigo-600 dark:bg-indigo-800 text-white p-8 md:p-12 rounded-xl shadow-xl relative overflow-hidden">
+        <div class="absolute top-0 right-0 text-6xl opacity-25 transform translate-x-8 -translate-y-8">❝</div>
+        <div class="absolute bottom-0 left-0 text-6xl opacity-25 transform -translate-x-8 translate-y-8">❞</div>
+        <blockquote class="text-xl md:text-2xl italic mb-4 relative z-10">
+          "Mi objetivo es combinar creatividad y tecnología para construir soluciones digitales que marquen la diferencia. Cada línea de código es una oportunidad para innovar."
+        </blockquote>
+        <div class="text-right">
+          <cite class="text-lg font-light not-italic">— {personalInfo.name}</cite>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Script para las animaciones basadas en Intersection Observer
+  document.addEventListener('DOMContentLoaded', () => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.remove('opacity-0');
+          entry.target.classList.remove('translate-y-4');
+          entry.target.classList.remove('translate-x-[-20px]');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    const elements = [
+      document.getElementById('about-header'),
+      document.getElementById('about-profile'),
+      document.getElementById('about-experience'),
+      document.getElementById('about-education'),
+      document.getElementById('about-skills'),
+      document.getElementById('about-interests'),
+      document.getElementById('about-quote')
+    ];
+
+    elements.forEach(el => {
+      if (el) observer.observe(el);
+    });
+  });
+</script>
