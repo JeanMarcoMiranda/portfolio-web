@@ -1,0 +1,25 @@
+---
+// src/pages/blog/index.astro
+import Layout from '../../layouts/Layout.astro';
+import BlogCard from '../../components/BlogCard.astro';
+
+// Obtener todos los posts de blog
+const posts = await Astro.glob('../../content/blog/*.md');
+// Ordenar por fecha (más reciente primero)
+const sortedPosts = posts.sort((a, b) => new Date(b.frontmatter.date) - new Date(a.frontmatter.date));
+---
+
+<Layout title="Blog">
+  <h1>Mi Blog</h1>
+  <div class="blog-grid">
+    {sortedPosts.map(post => (
+      <BlogCard 
+        title={post.frontmatter.title}
+        description={post.frontmatter.description}
+        date={post.frontmatter.date}
+        image={post.frontmatter.image}
+        slug={post.file.split('/').pop().split('.').shift()}
+      />
+    ))}
+  </div>
+</Layout>
