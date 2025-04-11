@@ -1,0 +1,275 @@
+---
+// Projects.astro
+import { Image } from 'astro:assets';
+
+// Puedes personalizar estos datos según tus proyectos reales
+const projectsData = {
+  title: "Mis Proyectos",
+  description: "Una selección de trabajos recientes que muestran mi enfoque en diseño, desarrollo y experiencia de usuario.",
+  categories: ["Todos", "Web", "App", "Diseño UX/UI", "Backend"]
+};
+
+// Array de proyectos - Personaliza con tus proyectos reales
+const projects = [
+  {
+    id: "project-1",
+    title: "E-commerce Dashboard",
+    description: "Panel de administración para tiendas online con análisis de datos en tiempo real y gestión de inventario.",
+    image: "/api/placeholder/600/400", // Reemplaza con tu imagen real
+    category: "Web",
+    tech: ["React", "Node.js", "MongoDB", "Chart.js"],
+    demoUrl: "#",
+    codeUrl: "#",
+    featured: true
+  },
+  {
+    id: "project-2",
+    title: "App de Meditación",
+    description: "Aplicación móvil para meditación y mindfulness con seguimiento de progreso y contenido personalizado.",
+    image: "/api/placeholder/600/400", // Reemplaza con tu imagen real
+    category: "App",
+    tech: ["React Native", "Firebase", "Redux"],
+    demoUrl: "#",
+    codeUrl: "#",
+    featured: true
+  },
+  {
+    id: "project-3",
+    title: "Sistema de Reservas",
+    description: "Plataforma completa para gestionar reservas de servicios con calendario interactivo y notificaciones.",
+    image: "/api/placeholder/600/400", // Reemplaza con tu imagen real
+    category: "Web",
+    tech: ["Vue.js", "Express", "PostgreSQL"],
+    demoUrl: "#",
+    codeUrl: "#",
+    featured: false
+  },
+  {
+    id: "project-4",
+    title: "Rediseño UX/UI Fintech",
+    description: "Rediseño completo de la experiencia de usuario para una aplicación financiera enfocada en la accesibilidad.",
+    image: "/api/placeholder/600/400", // Reemplaza con tu imagen real
+    category: "Diseño UX/UI",
+    tech: ["Figma", "Adobe XD", "Prototype"],
+    demoUrl: "#",
+    codeUrl: "#",
+    featured: false
+  },
+  {
+    id: "project-5",
+    title: "API de Pagos",
+    description: "Desarrollo de una API RESTful para procesamiento de pagos con múltiples pasarelas y sistema anti-fraude.",
+    image: "/api/placeholder/600/400", // Reemplaza con tu imagen real
+    category: "Backend",
+    tech: ["Python", "Django", "Docker", "AWS"],
+    demoUrl: "#",
+    codeUrl: "#",
+    featured: true
+  },
+  {
+    id: "project-6",
+    title: "Portfolio con Astro",
+    description: "Portfolio personal desarrollado con Astro 5 y Tailwind CSS con animaciones fluidas y rendimiento optimizado.",
+    image: "/api/placeholder/600/400", // Reemplaza con tu imagen real
+    category: "Web",
+    tech: ["Astro", "Tailwind CSS", "JavaScript"],
+    demoUrl: "#",
+    codeUrl: "#",
+    featured: false
+  }
+];
+---
+
+<section id="projects" class="py-24 bg-slate-50 dark:bg-slate-900 relative overflow-hidden">
+  <!-- Elementos decorativos de fondo -->
+  <div class="absolute inset-0 pointer-events-none">
+    <div class="absolute top-40 right-10 w-72 h-72 bg-purple-500 opacity-10 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-20 left-10 w-80 h-80 bg-indigo-500 opacity-10 rounded-full blur-3xl"></div>
+    <!-- Patrones de fondo (grid) -->
+    <div class="absolute inset-0 bg-grid-slate-200/20 dark:bg-grid-slate-700/20 [mask-image:radial-gradient(white,transparent_85%)]"></div>
+  </div>
+
+  <div class="container mx-auto px-4 relative z-10">
+    <!-- Header con animación al entrar en viewport -->
+    <div class="flex flex-col items-center mb-16 opacity-0 translate-y-4 transition-all duration-700 ease-out" 
+         id="projects-header">
+      <h2 class="text-5xl font-bold text-slate-800 dark:text-white mb-4">{projectsData.title}</h2>
+      <div class="w-20 h-1 bg-indigo-600 rounded-full mb-8"></div>
+      <p class="text-xl text-slate-600 dark:text-slate-300 text-center max-w-2xl">
+        {projectsData.description}
+      </p>
+    </div>
+
+    <!-- Filtros de categorías -->
+    <div class="flex flex-wrap justify-center gap-3 mb-12 opacity-0 translate-y-4 transition-all duration-700 ease-out delay-300" id="projects-filters">
+      {projectsData.categories.map((category, index) => (
+        <button 
+          class="px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 data-[active=true]:bg-indigo-600 data-[active=true]:text-white bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 shadow-md"
+          data-category={category}
+          data-active={index === 0 ? "true" : "false"}
+        >
+          {category}
+        </button>
+      ))}
+    </div>
+
+    <!-- Grid de proyectos -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16" id="projects-grid">
+      {projects.map((project, index) => (
+        <div 
+          class="bg-white dark:bg-slate-800 rounded-xl shadow-xl overflow-hidden group transition-all duration-300 hover:shadow-2xl hover:shadow-indigo-500/10 opacity-0 translate-y-4" 
+          data-category={project.category}
+          style={`transition-delay: ${index * 100}ms`}
+          id={`project-card-${index}`}
+        >
+          <!-- Imagen del proyecto -->
+          <div class="relative overflow-hidden aspect-video">
+            <img 
+              src={project.image} 
+              alt={project.title} 
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
+            />
+            {project.featured && (
+              <div class="absolute top-4 right-4 bg-indigo-600 text-white text-xs font-bold px-3 py-1 rounded-full">
+                Destacado
+              </div>
+            )}
+          </div>
+          
+          <!-- Contenido del proyecto -->
+          <div class="p-6">
+            <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-2">{project.title}</h3>
+            <p class="text-slate-600 dark:text-slate-300 mb-4 line-clamp-3">{project.description}</p>
+            
+            <!-- Tecnologías usadas -->
+            <div class="flex flex-wrap gap-2 mb-6">
+              {project.tech.map(tech => (
+                <span class="px-3 py-1 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-full text-xs">
+                  {tech}
+                </span>
+              ))}
+            </div>
+            
+            <!-- Enlaces -->
+            <div class="flex gap-4">
+              <a href={project.demoUrl} class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white text-center py-2 rounded transition-colors duration-300">
+                Demo
+              </a>
+              <a href={project.codeUrl} class="flex-1 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 hover:border-indigo-600 dark:hover:border-indigo-400 text-slate-700 dark:text-slate-300 text-center py-2 rounded transition-colors duration-300">
+                Código
+              </a>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Sección "Más proyectos" -->
+    <div class="flex flex-col items-center opacity-0 translate-y-4 transition-all duration-700 ease-out delay-500" id="projects-more">
+      <div class="p-8 md:p-10 bg-white dark:bg-slate-800 rounded-xl shadow-lg max-w-3xl w-full">
+        <div class="flex flex-col md:flex-row items-center gap-6">
+          <div class="bg-indigo-100 dark:bg-indigo-900/40 rounded-full p-6">
+            <div class="text-4xl">💼</div>
+          </div>
+          <div class="flex-1 text-center md:text-left">
+            <h3 class="text-2xl font-bold text-slate-800 dark:text-white mb-2">¿Quieres ver más proyectos?</h3>
+            <p class="text-slate-600 dark:text-slate-300 mb-4">
+              Visita mi repositorio en GitHub para explorar más trabajos y proyectos de código abierto.
+            </p>
+            <a href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-6 py-3 bg-slate-800 dark:bg-slate-700 hover:bg-slate-900 dark:hover:bg-slate-600 text-white rounded-lg transition-colors duration-300">
+              <span class="mr-2">Ver más en GitHub</span>
+              <span>🐙</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Patrón de fondo cuadriculado - Mantenemos el mismo estilo que en Hero.astro */
+  .bg-grid-slate-200\/20 {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23CBD5E1' fill-opacity='0.2'%3E%3Cpath opacity='0.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  .bg-grid-slate-700\/20 {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23334155' fill-opacity='0.2'%3E%3Cpath opacity='0.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+</style>
+
+<script>
+  // Script para las animaciones y filtrado de proyectos
+  document.addEventListener('DOMContentLoaded', () => {
+    // Animaciones de entrada al cargar o hacer scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.remove('opacity-0');
+          entry.target.classList.remove('translate-y-4');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    const elements = [
+      document.getElementById('projects-header'),
+      document.getElementById('projects-filters'),
+      document.getElementById('projects-more')
+    ];
+
+    elements.forEach(el => {
+      if (el) observer.observe(el);
+    });
+
+    // Animar las tarjetas de proyectos con un poco de retraso entre ellas
+    const projectCards = document.querySelectorAll('[id^="project-card-"]');
+    projectCards.forEach(card => {
+      observer.observe(card);
+    });
+
+    // Funcionalidad para el filtrado de proyectos
+    const filterButtons = document.querySelectorAll('[data-category]');
+    const projectItems = document.querySelectorAll('#projects-grid > div');
+
+    // Función para filtrar proyectos
+    function filterProjects(category) {
+      projectItems.forEach(item => {
+        const itemCategory = item.getAttribute('data-category');
+        
+        // Si el filtro es "Todos" o coincide con la categoría del proyecto
+        if (category === 'Todos' || category === itemCategory) {
+          item.style.display = 'block';
+          // Aplicar una animación de entrada sutil
+          setTimeout(() => {
+            item.classList.remove('opacity-0');
+            item.classList.remove('translate-y-4');
+          }, 50);
+        } else {
+          // Ocultar con una pequeña animación
+          item.classList.add('opacity-0');
+          item.classList.add('translate-y-4');
+          setTimeout(() => {
+            item.style.display = 'none';
+          }, 300);
+        }
+      });
+    }
+
+    // Event listeners para los botones de filtro
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        // Cambiar el estado activo de los botones
+        filterButtons.forEach(btn => btn.setAttribute('data-active', 'false'));
+        button.setAttribute('data-active', 'true');
+        
+        // Filtrar proyectos
+        const category = button.getAttribute('data-category');
+        filterProjects(category);
+      });
+    });
+
+    // Inicializar mostrando todos los proyectos
+    filterProjects('Todos');
+  });
+</script>
