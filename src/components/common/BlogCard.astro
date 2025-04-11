@@ -1,0 +1,37 @@
+---
+// src/components/BlogCard.astro
+const { title, description, date, image, slug } = Astro.props;
+
+// Formatear fecha
+const formattedDate = new Date(date).toLocaleDateString('es-ES', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+});
+---
+
+<div class="blog-card">
+  {image && <img src={image} alt={title} />}
+  <div class="content">
+    <h2>{title}</h2>
+    <p class="date">{formattedDate}</p>
+    <p>{description}</p>
+    <a href={`/blog/${slug}`}>Leer más</a>
+  </div>
+</div>
+
+<style>
+  .blog-card {
+    border: 1px solid #eee;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.2s ease;
+  }
+  
+  .blog-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  }
+  
+  /* Más estilos aquí */
+</style>
