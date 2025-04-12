@@ -1,5 +1,5 @@
 // src/content/config.ts
-import { z, defineCollection } from 'astro:content';
+import { defineCollection, z } from 'astro:content';
 
 const blogCollection = defineCollection({
   type: 'content',
@@ -7,9 +7,8 @@ const blogCollection = defineCollection({
     title: z.string(),
     description: z.string(),
     date: z.date(),
-    tags: z.array(z.string()).optional(),
-    image: z.string().optional(),
-    draft: z.boolean().optional().default(false),
+    tags: z.array(z.string()),
+    slug: z.string(),
   }),
 });
 
