@@ -1,25 +1,130 @@
 ---
 // src/pages/blog/index.astro
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
 import Layout from '../../layouts/Layout.astro';
-import BlogCard from '../../components/common/BlogCard.astro';
 
-// Obtener todos los posts de blog
-const posts = await Astro.glob('../../content/blog/*.md');
-// Ordenar por fecha (más reciente primero)
-const sortedPosts = posts.sort((a, b) => new Date(b.frontmatter.date) - new Date(a.frontmatter.date));
+// Obtener todas las publicaciones (excluyendo borradores)
+// const posts = await getCollection('blog', ({ data }) => !data.draft);
+const posts = Object.values(import.meta.glob('../../content/blog/*.md', { eager: true }))
+console.log("post cargados", posts)
+
+// Ordenar por fecha descendente
+posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+const pageData = {
+  title: "Mi Blog",
+  description: "Explora mis artículos sobre desarrollo web, diseño, tecnología y más.",
+};
 ---
 
-<Layout title="Blog">
-  <h1>Mi Blog</h1>
-  <div class="blog-grid">
-    {sortedPosts.map(post => (
-      <BlogCard 
-        title={post.frontmatter.title}
-        description={post.frontmatter.description}
-        date={post.frontmatter.date}
-        image={post.frontmatter.image}
-        slug={post.file.split('/').pop().split('.').shift()}
-      />
-    ))}
-  </div>
+<Layout	title=''>
+  <section id="blog" class="py-24 min-h-screen bg-slate-50 dark:bg-slate-900 relative overflow-hidden">
+	<!-- Fondo decorativo -->
+	<div class="absolute inset-0 pointer-events-none">
+	  <div class="absolute top-40 right-10 w-72 h-72 bg-purple-500 opacity-10 rounded-full blur-3xl"></div>
+	  <div class="absolute bottom-20 left-10 w-80 h-80 bg-indigo-500 opacity-10 rounded-full blur-3xl"></div>
+	  <div class="absolute inset-0 bg-grid-slate-200/20 dark:bg-grid-slate-700/20 [mask-image:radial-gradient(white,transparent_85%)]"></div>
+	</div>
+
+	<div class="container mx-auto px-4 relative z-10">
+	  <!-- Header -->
+	  <div class="flex flex-col items-center mb-16 opacity-0 translate-y-4 transition-all duration-700 ease-out" id="blog-header">
+		<h2 class="text-5xl font-bold text-slate-800 dark:text-white mb-4">{pageData.title}</h2>
+		<div class="w-20 h-1 bg-indigo-600 rounded-full mb-8"></div>
+		<p class="text-xl text-slate-600 dark:text-slate-300 text-center max-w-2xl">{pageData.description}</p>
+	  </div>
+
+	  <!-- Lista de publicaciones -->
+	  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16" id="blog-grid">
+		{posts.map((post, index) => (
+		  <a 
+			href={`/blog/${post.slug}`} 
+			class="bg-white dark:bg-slate-800 rounded-xl shadow-xl overflow-hidden group transition-all duration-300 hover:shadow-2xl hover:shadow-indigo-500/10 opacity-0 translate-y-4"
+			style={`transition-delay: ${index * 100}ms`}
+			id={`post-card-${index}`}
+		  >
+			<!-- Imagen (si existe) -->
+			{post.image && (
+			  <div class="relative overflow-hidden aspect-video">
+				<img 
+				  src={post.image} 
+				  alt={post.title} 
+				  class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
+				/>
+			  </div>
+			)}
+			
+			<!-- Contenido -->
+			<div class="p-6">
+			  <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-2 line-clamp-2">{post.title}</h3>
+			  <p class="text-slate-600 dark:text-slate-300 mb-4 line-clamp-3">{post.description}</p>
+			  
+			  <!-- Fecha y etiquetas -->
+			  <div class="flex items-center justify-between text-sm text-slate-500 dark:text-slate-400 mb-4">
+				<span>{new Date(post.date).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+				{post.tags && post.tags.length > 0 && (
+				  <div class="flex gap-2">
+					{post.tags.slice(0, 2).map(tag => (
+					  <span class="px-2 py-1 bg-slate-100 dark:bg-slate-700 rounded-full text-xs">{tag}</span>
+					))}
+				  </div>
+				)}
+			  </div>
+
+			  <!-- CTA -->
+			  <span class="inline-block text-indigo-600 dark:text-indigo-400 font-medium hover:underline transition">
+				Leer más →
+			  </span>
+			</div>
+		  </a>
+		))}
+	  </div>
+
+	  <!-- Mensaje si no hay publicaciones -->
+	  {posts.length === 0 && (
+		<div class="text-center opacity-0 translate-y-4 transition-all duration-700 ease-out" id="no-posts">
+		  <p class="text-xl text-slate-600 dark:text-slate-300">¡Aún no hay publicaciones! Vuelve pronto para ver nuevo contenido.</p>
+		</div>
+	  )}
+	</div>
+  </section>
 </Layout>
+
+<style>
+  .bg-grid-slate-200\/20 {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23CBD5E1' fill-opacity='0.2'%3E%3Cpath opacity='0.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  .bg-grid-slate-700\/20 {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23334155' fill-opacity='0.2'%3E%3Cpath opacity='0.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+</style>
+
+<script>
+  // Animaciones con IntersectionObserver
+  document.addEventListener('DOMContentLoaded', () => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.remove('opacity-0');
+            entry.target.classList.remove('translate-y-4');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    const elements = [
+      document.getElementById('blog-header'),
+      document.getElementById('no-posts'),
+    ].filter(Boolean);
+
+    elements.forEach((el) => observer.observe(el));
+
+    const postCards = document.querySelectorAll('[id^="post-card-"]');
+    postCards.forEach((card) => observer.observe(card));
+  });
+</script>

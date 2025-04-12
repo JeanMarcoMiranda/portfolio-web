@@ -1,0 +1,333 @@
+---
+// Contact.astro
+import { Image } from 'astro:assets';
+
+// Datos de contacto personalizables
+const contactData = {
+  title: "Contacto",
+  description: "¿Tienes un proyecto en mente? Estoy disponible para colaboraciones y nuevas oportunidades. ¡Hablemos sobre cómo puedo ayudarte!",
+  email: "tu@email.com",
+  location: "Ciudad, País",
+  availability: "Disponible para proyectos freelance",
+  response: "Respuesta en 1-2 días hábiles"
+};
+
+// Métodos de contacto con iconos
+const contactMethods = [
+  {
+    name: "Email",
+    value: contactData.email,
+    icon: "📧", // Puedes reemplazar con un import de un ícono real
+    url: `mailto:${contactData.email}`,
+    primary: true
+  },
+  {
+    name: "LinkedIn",
+    value: "tu-perfil-linkedin",
+    icon: "💼", // Puedes reemplazar con un import de un ícono real
+    url: "https://linkedin.com/in/tu-perfil",
+    primary: false
+  },
+  {
+    name: "GitHub",
+    value: "tu-usuario-github",
+    icon: "🐙", // Puedes reemplazar con un import de un ícono real
+    url: "https://github.com/tu-usuario",
+    primary: false
+  },
+  {
+    name: "Twitter/X",
+    value: "@tu_usuario",
+    icon: "🐦", // Puedes reemplazar con un import de un ícono real
+    url: "https://twitter.com/tu_usuario",
+    primary: false
+  }
+];
+
+// Preguntas frecuentes (FAQ)
+const faqs = [
+  {
+    question: "¿Qué servicios ofreces?",
+    answer: "Ofrezco desarrollo web full stack, diseño de interfaces, optimización de rendimiento y consultoría técnica para proyectos digitales. Mi enfoque es crear soluciones personalizadas que cumplan con tus objetivos de negocio y necesidades específicas."
+  },
+  {
+    question: "¿Cómo es tu proceso de trabajo?",
+    answer: "Mi proceso incluye una fase inicial de descubrimiento para entender tus necesidades, seguido de planificación, diseño, desarrollo, pruebas y lanzamiento. Mantengo una comunicación constante durante todo el proyecto y ofrezco soporte posterior al lanzamiento."
+  },
+  {
+    question: "¿Cuáles son tus tarifas?",
+    answer: "Las tarifas varían según la complejidad, alcance y duración del proyecto. Puedo trabajar con presupuestos por proyecto completo o por horas. Contáctame con los detalles de tu proyecto para recibir un presupuesto personalizado."
+  },
+  {
+    question: "¿Cuánto tiempo toma completar un proyecto?",
+    answer: "El tiempo de desarrollo depende del alcance y complejidad. Un sitio web básico puede estar listo en 2-4 semanas, mientras que aplicaciones más complejas pueden tomar varios meses. Siempre proporciono un cronograma detallado antes de comenzar."
+  }
+];
+---
+
+<section id="contact" class="py-24 bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-800 relative overflow-hidden">
+  <!-- Elementos decorativos de fondo -->
+  <div class="absolute inset-0 pointer-events-none">
+    <div class="absolute top-40 left-10 w-72 h-72 bg-indigo-500 opacity-10 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-20 right-10 w-80 h-80 bg-purple-500 opacity-10 rounded-full blur-3xl"></div>
+    <!-- Patrones de fondo (grid) -->
+    <div class="absolute inset-0 bg-grid-slate-200/20 dark:bg-grid-slate-700/20 [mask-image:radial-gradient(white,transparent_85%)]"></div>
+  </div>
+
+  <div class="container mx-auto px-4 relative z-10">
+    <!-- Header con animación al entrar en viewport -->
+    <div class="flex flex-col items-center mb-16 opacity-0 translate-y-4 transition-all duration-700 ease-out" 
+         id="contact-header">
+      <h2 class="text-5xl font-bold text-slate-800 dark:text-white mb-4">{contactData.title}</h2>
+      <div class="w-20 h-1 bg-indigo-600 rounded-full mb-8"></div>
+      <p class="text-xl text-slate-600 dark:text-slate-300 text-center max-w-2xl">
+        {contactData.description}
+      </p>
+    </div>
+
+    <!-- Grid para contenido principal -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-20">
+      <!-- Columna izquierda: Formulario de contacto -->
+      <div class="lg:col-span-7 opacity-0 translate-y-4 transition-all duration-700 ease-out delay-300" id="contact-form">
+        <div class="bg-white dark:bg-slate-800 rounded-xl shadow-xl p-8 md:p-10 relative overflow-hidden">
+          <!-- Efecto de borde gradient al estilo de tus otros componentes -->
+          <div class="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl blur"></div>
+          
+          <h3 class="text-2xl font-bold text-slate-800 dark:text-white mb-6">Envíame un mensaje</h3>
+          
+          <form class="space-y-6">
+            <!-- Nombre -->
+            <div>
+              <label for="name" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Nombre</label>
+              <input 
+                type="text" 
+                id="name" 
+                name="name" 
+                placeholder="Tu nombre" 
+                class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 focus:border-transparent text-slate-900 dark:text-white transition-all duration-300"
+                required
+              />
+            </div>
+            
+            <!-- Email -->
+            <div>
+              <label for="email" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Email</label>
+              <input 
+                type="email" 
+                id="email" 
+                name="email" 
+                placeholder="tu@ejemplo.com" 
+                class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 focus:border-transparent text-slate-900 dark:text-white transition-all duration-300"
+                required
+              />
+            </div>
+            
+            <!-- Asunto -->
+            <div>
+              <label for="subject" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Asunto</label>
+              <input 
+                type="text" 
+                id="subject" 
+                name="subject" 
+                placeholder="¿De qué quieres hablar?" 
+                class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 focus:border-transparent text-slate-900 dark:text-white transition-all duration-300"
+                required
+              />
+            </div>
+            
+            <!-- Mensaje -->
+            <div>
+              <label for="message" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Mensaje</label>
+              <textarea 
+                id="message" 
+                name="message" 
+                rows="5" 
+                placeholder="Cuéntame sobre tu proyecto o idea..." 
+                class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 focus:border-transparent text-slate-900 dark:text-white transition-all duration-300 resize-none"
+                required
+              ></textarea>
+            </div>
+            
+            <!-- Botón de enviar -->
+            <button 
+              type="submit" 
+              class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-medium py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center group"
+            >
+              <span class="mr-2 group-hover:mr-3 transition-all">Enviar Mensaje</span>
+              <span>✉️</span>
+            </button>
+          </form>
+          
+          <!-- Nota de respuesta -->
+          <div class="mt-6 text-center">
+            <p class="text-slate-500 dark:text-slate-400 text-sm">
+              <span class="inline-block mr-2">⏱️</span>
+              {contactData.response}
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Columna derecha: Información de contacto y FAQ -->
+      <div class="lg:col-span-5 space-y-8">
+        <!-- Tarjeta de información de contacto -->
+        <div class="bg-white dark:bg-slate-800 rounded-xl shadow-xl p-8 opacity-0 translate-y-4 transition-all duration-700 ease-out delay-500" id="contact-info">
+          <h3 class="text-2xl font-bold text-slate-800 dark:text-white mb-6">Información de Contacto</h3>
+          
+          <div class="space-y-6">
+            {contactMethods.map(method => (
+              <a 
+                href={method.url} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class={`flex items-center p-4 rounded-lg transition-all duration-300 ${method.primary ? 'bg-indigo-50 dark:bg-indigo-900/30 hover:bg-indigo-100 dark:hover:bg-indigo-800/30' : 'bg-slate-50 dark:bg-slate-700/50 hover:bg-slate-100 dark:hover:bg-slate-700'}`}
+              >
+                <div class={`w-12 h-12 rounded-full flex items-center justify-center text-xl ${method.primary ? 'bg-indigo-100 dark:bg-indigo-800 text-indigo-600 dark:text-indigo-300' : 'bg-slate-200 dark:bg-slate-600 text-slate-700 dark:text-slate-300'}`}>
+                  {method.icon}
+                </div>
+                <div class="ml-4">
+                  <h4 class="text-lg font-medium text-slate-800 dark:text-white">{method.name}</h4>
+                  <p class="text-slate-600 dark:text-slate-300">{method.value}</p>
+                </div>
+              </a>
+            ))}
+          </div>
+          
+          <!-- Disponibilidad -->
+          <div class="mt-8 p-4 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg text-white">
+            <div class="flex items-center">
+              <div class="h-3 w-3 bg-green-400 rounded-full mr-2 animate-pulse"></div>
+              <p class="font-medium">{contactData.availability}</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- FAQs -->
+        <div class="bg-white dark:bg-slate-800 rounded-xl shadow-xl p-8 opacity-0 translate-y-4 transition-all duration-700 ease-out delay-700" id="contact-faq">
+          <h3 class="text-2xl font-bold text-slate-800 dark:text-white mb-6">Preguntas Frecuentes</h3>
+          
+          <div class="space-y-6">
+            {faqs.map((faq, index) => (
+              <div class="border-b border-slate-200 dark:border-slate-700 pb-4 last:border-0" data-faq-item>
+                <button 
+                  class="flex justify-between items-center w-full text-left focus:outline-none group" 
+                  data-faq-toggle
+                  aria-expanded="false"
+                  aria-controls={`faq-content-${index}`}
+                >
+                  <h4 class="text-lg font-medium text-slate-800 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">{faq.question}</h4>
+                  <span class="transform transition-transform duration-300 text-lg">➕</span>
+                </button>
+                <div 
+                  id={`faq-content-${index}`} 
+                  class="mt-2 text-slate-600 dark:text-slate-300 hidden"
+                >
+                  <p>{faq.answer}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Ubicación o mapa (opcional) -->
+    <div class="opacity-0 translate-y-4 transition-all duration-700 ease-out delay-900" id="contact-map">
+      <div class="bg-white dark:bg-slate-800 rounded-xl shadow-xl p-6 relative overflow-hidden">
+        <h3 class="text-2xl font-bold text-slate-800 dark:text-white mb-4">Mi Ubicación</h3>
+        
+        <!-- Placeholder para un mapa o imagen de ubicación -->
+        <div class="relative aspect-[16/9] bg-slate-100 dark:bg-slate-700 rounded-lg overflow-hidden flex items-center justify-center">
+          <!-- Aquí podrías incluir un iframe con Google Maps o una imagen estática -->
+          <div class="text-4xl text-slate-400 dark:text-slate-500">🗺️</div>
+          <div class="absolute inset-0 flex items-center justify-center">
+            <p class="text-slate-600 dark:text-slate-300 font-medium">{contactData.location}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Patrón de fondo cuadriculado - Mantenemos el mismo estilo que en tus otros componentes */
+  .bg-grid-slate-200\/20 {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23CBD5E1' fill-opacity='0.2'%3E%3Cpath opacity='0.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  .bg-grid-slate-700\/20 {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23334155' fill-opacity='0.2'%3E%3Cpath opacity='0.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+</style>
+
+<script>
+  // Script para las animaciones basadas en Intersection Observer
+  document.addEventListener('DOMContentLoaded', () => {
+    // Animaciones de entrada al cargar o hacer scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.remove('opacity-0');
+          entry.target.classList.remove('translate-y-4');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    const elements = [
+      document.getElementById('contact-header'),
+      document.getElementById('contact-form'),
+      document.getElementById('contact-info'),
+      document.getElementById('contact-faq'),
+      document.getElementById('contact-map')
+    ];
+
+    elements.forEach(el => {
+      if (el) observer.observe(el);
+    });
+
+    // Funcionalidad para FAQs (acordeón)
+    const faqItems = document.querySelectorAll('[data-faq-item]');
+    
+    faqItems.forEach(item => {
+      const toggle = item.querySelector('[data-faq-toggle]');
+      const content = item.querySelector('[id^="faq-content-"]');
+      
+      toggle.addEventListener('click', () => {
+        // Cerrar todos los otros FAQs
+        faqItems.forEach(otherItem => {
+          if (otherItem !== item) {
+            const otherToggle = otherItem.querySelector('[data-faq-toggle]');
+            const otherContent = otherItem.querySelector('[id^="faq-content-"]');
+            
+            otherToggle.setAttribute('aria-expanded', 'false');
+            otherToggle.querySelector('span').textContent = '➕';
+            otherContent.classList.add('hidden');
+          }
+        });
+        
+        // Alternar el estado actual
+        const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
+        toggle.setAttribute('aria-expanded', isExpanded ? 'false' : 'true');
+        toggle.querySelector('span').textContent = isExpanded ? '➕' : '➖';
+        
+        if (isExpanded) {
+          content.classList.add('hidden');
+        } else {
+          content.classList.remove('hidden');
+        }
+      });
+    });
+
+    // Script opcional para validación básica del formulario
+    const form = document.querySelector('form');
+    if (form) {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        // Aquí podrías añadir la lógica para enviar el formulario via AJAX
+        // o conectarlo con un servicio como Formspree, Netlify Forms, etc.
+        alert('Formulario enviado (simulación). En una implementación real, este formulario se conectaría a un backend o servicio de formularios.');
+      });
+    }
+  });
+</script>
