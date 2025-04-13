@@ -1,356 +1,162 @@
 ---
-import { Icon } from 'astro-icon/components'; // Para íconos SVG
+// Hero.astro
+import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
 
-// Datos de contacto
-const contactData = {
-  title: "Contacto",
-  description: "¿Tienes un proyecto en mente? Estoy disponible para colaboraciones y nuevas oportunidades. ¡Hablemos sobre cómo puedo ayudarte!",
-  email: "tu@email.com",
-  location: "Ciudad, País",
-  availability: "Disponible para proyectos freelance",
-  response: "Respuesta en 1-2 días hábiles",
+// Datos del héroe
+const heroData = {
+  name: "Tu Nombre",
+  title: "Desarrollador Web Full Stack",
+  shortBio: "Creando experiencias digitales excepcionales con Astro, React y tecnologías modernas",
+  ctaPrimary: {
+    text: "Ver Proyectos",
+    url: "#projects",
+  },
+  ctaSecondary: {
+    text: "Contáctame",
+    url: "#contact",
+  },
+  socialLinks: [
+    { name: "GitHub", url: "https://github.com/tuusuario", icon: "mdi:github" },
+    { name: "LinkedIn", url: "https://linkedin.com/in/tuusuario", icon: "mdi:linkedin" },
+    { name: "Twitter", url: "https://twitter.com/tuusuario", icon: "mdi:twitter" },
+    { name: "Instagram", url: "https://instagram.com/tuusuario", icon: "mdi:instagram" },
+  ],
+  skills: ["HTML", "CSS", "JavaScript", "React", "Astro", "Tailwind CSS", "Node.js"],
+  // Reemplaza con la ruta real a tu imagen, o déjalo como null si no usas imagen
+  avatar: null, // Ejemplo: "/src/assets/avatar.jpg"
 };
-
-// Métodos de contacto
-const contactMethods = [
-  {
-    name: "Email",
-    value: contactData.email,
-    icon: "mdi:email",
-    url: `mailto:${contactData.email}`,
-    primary: true,
-  },
-  {
-    name: "LinkedIn",
-    value: "tu-perfil-linkedin",
-    icon: "mdi:linkedin",
-    url: "https://linkedin.com/in/tu-perfil",
-    primary: false,
-  },
-  {
-    name: "GitHub",
-    value: "tu-usuario-github",
-    icon: "mdi:github",
-    url: "https://github.com/tu-usuario",
-    primary: false,
-  },
-  {
-    name: "Twitter/X",
-    value: "@tu_usuario",
-    icon: "mdi:twitter",
-    url: "https://twitter.com/tu_usuario",
-    primary: false,
-  },
-];
-
-// Preguntas frecuentes
-const faqs = [
-  {
-    question: "¿Qué servicios ofreces?",
-    answer:
-      "Ofrezco desarrollo web full stack, diseño de interfaces, optimización de rendimiento y consultoría técnica para proyectos digitales.",
-  },
-  {
-    question: "¿Cómo es tu proceso de trabajo?",
-    answer:
-      "Mi proceso incluye descubrimiento, planificación, diseño, desarrollo, pruebas y lanzamiento, con comunicación constante y soporte posterior.",
-  },
-  {
-    question: "¿Cuáles son tus tarifas?",
-    answer:
-      "Las tarifas varían según la complejidad. Contáctame para un presupuesto personalizado basado en tu proyecto.",
-  },
-  {
-    question: "¿Cuánto tiempo toma completar un proyecto?",
-    answer:
-      "Un sitio web básico puede tomar 2-4 semanas, mientras que aplicaciones complejas pueden requerir meses. Proporciono cronogramas detallados.",
-  },
-];
 ---
 
 <section
-  id="contact"
-  class="py-16 md:py-24 bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-800 relative overflow-hidden"
-  aria-labelledby="contact-title"
+  class="relative min-h-screen flex items-center py-20 overflow-hidden bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-800"
+  aria-labelledby="hero-title"
 >
   <!-- Fondo decorativo -->
   <div class="absolute inset-0 pointer-events-none">
-    <div
-      class="absolute top-20 left-10 w-64 h-64 bg-indigo-500 opacity-10 rounded-full blur-2xl"
-    ></div>
-    <div
-      class="absolute bottom-10 right-10 w-64 h-64 bg-purple-500 opacity-10 rounded-full blur-2xl"
-    ></div>
-    <div
-      class="absolute inset-0 bg-grid-slate-200/20 dark:bg-grid-slate-700/20 [mask-image:radial-gradient(white,transparent_85%)]"
-    ></div>
+    <div class="absolute top-20 left-10 w-64 h-64 bg-indigo-500 opacity-10 rounded-full blur-2xl"></div>
+    <div class="absolute bottom-10 right-10 w-64 h-64 bg-purple-500 opacity-10 rounded-full blur-2xl"></div>
+    <div class="absolute inset-0 bg-grid-slate-200/20 dark:bg-grid-slate-700/20 [mask-image:radial-gradient(white,transparent_85%)]"></div>
   </div>
 
-  <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10">
-    <!-- Header -->
-    <div
-      class="flex flex-col items-center mb-12 opacity-0 translate-y-4 animate-on-scroll"
-      id="contact-header"
-    >
-      <h2
-        id="contact-title"
-        class="text-3xl sm:text-4xl font-bold text-slate-800 dark:text-white mb-4"
-      >
-        {contactData.title}
-      </h2>
-      <div class="w-16 h-1 bg-indigo-600 rounded-full mb-6"></div>
-      <p
-        class="text-base sm:text-lg text-slate-600 dark:text-slate-200 text-center max-w-3xl"
-      >
-        {contactData.description}
-      </p>
-    </div>
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl z-10">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-center">
+      <!-- Contenido principal -->
+      <div class="space-y-6 opacity-0 translate-y-4 animate-on-scroll" id="hero-content">
+        <!-- Saludo -->
+        <span class="inline-flex items-center px-3 py-1 text-sm font-medium bg-indigo-50 dark:bg-indigo-900/30 text-indigo-800 dark:text-indigo-200 rounded-full mb-4">
+          <Icon name="mdi:hand-wave" class="w-5 h-5 mr-2 animate-pulse" aria-hidden="true" />
+          ¡Hola, bienvenido a mi portafolio!
+        </span>
 
-    <!-- Grid principal -->
-    <div
-      class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 mb-16"
-    >
-      <!-- Formulario -->
-      <div
-        class="opacity-0 translate-y-4 animate-on-scroll"
-        style="transition-delay: 200ms;"
-      >
-        <div
-          class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 sm:p-8 group relative overflow-hidden"
-        >
-          <div
-            class="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-600 opacity-0 group-hover:opacity-10 transition-opacity duration-300 rounded-xl blur-xl"
-          ></div>
-          <h3
-            class="text-xl sm:text-2xl font-bold text-slate-800 dark:text-white mb-6"
-          >
-            Envíame un mensaje
-          </h3>
-          <form
-            name="contact"
-            method="POST"
-            data-netlify="true"
-            class="space-y-6"
-          >
-            <input type="hidden" name="form-name" value="contact" />
-            <div>
-              <label
-                for="name"
-                class="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1"
-              >
-                Nombre
-              </label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                placeholder="Tu nombre"
-                class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 focus:border-transparent text-slate-900 dark:text-white transition-all"
-                required
-              />
-            </div>
-            <div>
-              <label
-                for="email"
-                class="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1"
-              >
-                Email
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                placeholder="tu@ejemplo.com"
-                class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 focus:border-transparent text-slate-900 dark:text-white transition-all"
-                required
-              />
-            </div>
-            <div>
-              <label
-                for="subject"
-                class="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1"
-              >
-                Asunto
-              </label>
-              <input
-                type="text"
-                id="subject"
-                name="subject"
-                placeholder="¿De qué quieres hablar?"
-                class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 focus:border-transparent text-slate-900 dark:text-white transition-all"
-                required
-              />
-            </div>
-            <div>
-              <label
-                for="message"
-                class="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1"
-              >
-                Mensaje
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                rows="5"
-                placeholder="Cuéntame sobre tu proyecto..."
-                class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 focus:border-transparent text-slate-900 dark:text-white transition-all resize-none"
-                required
-              ></textarea>
-            </div>
-            <button
-              type="submit"
-              class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-medium py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all focus:ring-2 focus:ring-indigo-500 focus:outline-none flex items-center justify-center"
-            >
-              <span class="mr-2">Enviar Mensaje</span>
-              <Icon name="mdi:send" class="w-5 h-5" />
-            </button>
-          </form>
-          <p
-            class="mt-6 text-center text-sm text-slate-500 dark:text-slate-400"
-          >
-            <Icon name="mdi:clock-outline" class="inline-block w-4 h-4 mr-2" />
-            {contactData.response}
-          </p>
+        <!-- Nombre y título -->
+        <div>
+          <h1 id="hero-title" class="text-3xl sm:text-5xl lg:text-6xl font-bold text-slate-800 dark:text-white mb-3">
+            Soy <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">{heroData.name}</span>
+          </h1>
+          <div class="flex items-center">
+            <div class="h-1 w-16 bg-indigo-600 rounded-full mr-4"></div>
+            <h2 class="text-xl sm:text-2xl font-medium text-slate-600 dark:text-slate-200">{heroData.title}</h2>
+          </div>
         </div>
-      </div>
 
-      <!-- Información y FAQs -->
-      <div class="space-y-6 opacity-0 translate-y-4 animate-on-scroll" style="transition-delay: 400ms;">
-        <!-- Información de contacto -->
-        <div
-          class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 sm:p-8"
-        >
-          <h3
-            class="text-xl sm:text-2xl font-bold text-slate-800 dark:text-white mb-6"
+        <!-- Bio -->
+        <p class="text-base sm:text-lg text-slate-600 dark:text-slate-200 max-w-lg leading-relaxed">
+          {heroData.shortBio}
+        </p>
+
+        <!-- CTAs -->
+        <div class="flex flex-wrap gap-4">
+          <a
+            href={heroData.ctaPrimary.url}
+            class="px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all flex items-center group"
           >
-            Información de Contacto
-          </h3>
-          <div class="space-y-4">
-            {contactMethods.map((method) => (
+            <span class="mr-2">{heroData.ctaPrimary.text}</span>
+            <Icon name="mdi:arrow-right" class="w-5 h-5 transform group-hover:translate-x-1 transition-transform" />
+          </a>
+          <a
+            href={heroData.ctaSecondary.url}
+            class="px-6 py-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-indigo-600 dark:hover:border-indigo-400 text-slate-700 dark:text-slate-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium rounded-lg shadow-md hover:shadow-lg transition-all"
+          >
+            {heroData.ctaSecondary.text}
+          </a>
+        </div>
+
+        <!-- Redes sociales -->
+        <div class="pt-4">
+          <p class="text-sm text-slate-500 dark:text-slate-400 mb-3">Encuéntrame en:</p>
+          <div class="flex space-x-4">
+            {heroData.socialLinks.map(link => (
               <a
-                href={method.url}
+                href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                class={`flex items-center p-4 rounded-lg transition-all duration-300 ${
-                  method.primary
-                    ? "bg-indigo-50 dark:bg-indigo-900/30 hover:bg-indigo-100 dark:hover:bg-indigo-800/30"
-                    : "bg-slate-50 dark:bg-slate-700/50 hover:bg-slate-100 dark:hover:bg-slate-700"
-                }`}
-                aria-label={`Contactar vía ${method.name}`}
+                class="h-10 w-10 rounded-full bg-slate-50 dark:bg-slate-700/50 flex items-center justify-center text-slate-700 dark:text-slate-300 hover:bg-indigo-100 dark:hover:bg-indigo-800/30 transition-all"
+                aria-label={`Visita mi perfil en ${link.name}`}
+                title={link.name}
               >
-                <div
-                  class={`w-10 h-10 rounded-full flex items-center justify-center ${
-                    method.primary
-                      ? "bg-indigo-100 dark:bg-indigo-800 text-indigo-600 dark:text-indigo-300"
-                      : "bg-slate-200 dark:bg-slate-600 text-slate-700 dark:text-slate-300"
-                  }`}
-                >
-                  <Icon name={method.icon} class="w-6 h-6" />
-                </div>
-                <div class="ml-4">
-                  <h4
-                    class="text-base font-medium text-slate-800 dark:text-white"
-                  >
-                    {method.name}
-                  </h4>
-                  <p class="text-sm text-slate-600 dark:text-slate-200">
-                    {method.value}
-                  </p>
-                </div>
+                <Icon name={link.icon} class="w-6 h-6" />
               </a>
             ))}
           </div>
-          <div
-            class="mt-6 p-4 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg text-white"
-          >
-            <div class="flex items-center">
-              <div
-                class="h-3 w-3 bg-green-400 rounded-full mr-2 animate-pulse"
-              ></div>
-              <p class="text-sm font-medium">{contactData.availability}</p>
-            </div>
+        </div>
+      </div>
+
+      <!-- Imagen y decoraciones -->
+      <div class="relative lg:h-[500px] opacity-0 translate-y-4 animate-on-scroll" style="transition-delay: 200ms;">
+        <!-- Tarjeta principal -->
+        <div class="absolute top-0 right-0 w-full md:w-5/6 h-4/5 bg-white dark:bg-slate-800 rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-indigo-500/20 group z-10">
+          <div class="absolute inset-0 bg-gradient-to-br from-slate-50 to-indigo-50 dark:from-slate-800 dark:to-slate-700 opacity-80"></div>
+          <div class="relative h-full w-full flex items-center justify-center">
+            {heroData.avatar ? (
+              <Image
+                src={heroData.avatar}
+                alt={`Avatar de ${heroData.name}`}
+                width={400} // Dimensiones reales de la imagen
+                height={400} // Ajusta según tu imagen
+                class="w-4/5 h-4/5 object-cover rounded-full"
+                widths={[200, 400]}
+                sizes="(max-width: 768px) 200px, 400px"
+                loading="eager"
+              />
+            ) : (
+              <Icon name="mdi:account" class="w-4/5 h-4/5 text-slate-300 dark:text-slate-600" aria-hidden="true" />
+            )}
+          </div>
+          <div class="absolute inset-0 border-4 border-transparent group-hover:border-indigo-400/30 rounded-xl transition-all duration-300"></div>
+        </div>
+
+        <!-- Tarjeta de habilidades -->
+        <div class="absolute bottom-0 -left-4 md:left-0 w-48 bg-white dark:bg-slate-800 rounded-lg shadow-lg p-4 z-20 transform transition-transform hover:scale-105">
+          <h3 class="text-sm font-semibold text-slate-800 dark:text-white mb-2">Mis habilidades</h3>
+          <div class="flex flex-wrap gap-1">
+            {heroData.skills.map(skill => (
+              <span class="inline-block px-2 py-1 text-xs bg-slate-50 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-full">{skill}</span>
+            ))}
           </div>
         </div>
 
-        <!-- FAQs -->
-        <div
-          class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 sm:p-8"
-        >
-          <h3
-            class="text-xl sm:text-2xl font-bold text-slate-800 dark:text-white mb-6"
-          >
-            Preguntas Frecuentes
-          </h3>
-          <div class="space-y-4">
-            {faqs.map((faq, index) => (
-              <div
-                class="border-b border-slate-200 dark:border-slate-700 pb-4 last:border-0"
-                data-faq-item
-              >
-                <button
-                  class="flex justify-between items-center w-full text-left focus:outline-none group"
-                  data-faq-toggle
-                  aria-expanded="false"
-                  aria-controls={`faq-content-${index}`}
-                >
-                  <h4
-                    class="text-base font-medium text-slate-800 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors"
-                  >
-                    {faq.question}
-                  </h4>
-                  <Icon
-                    name="mdi:plus"
-                    class="w-5 h-5 text-slate-600 dark:text-slate-300 transform transition-transform duration-300"
-                    data-faq-icon
-                  />
-                </button>
-                <div
-                  id={`faq-content-${index}`}
-                  class="mt-2 text-sm text-slate-600 dark:text-slate-200 hidden"
-                >
-                  <p>{faq.answer}</p>
-                </div>
-              </div>
-            ))}
+        <!-- Círculo decorativo -->
+        <div class="absolute top-8 -right-8 md:-right-4 lg:-right-6 w-24 h-24 bg-indigo-50 dark:bg-indigo-900/30 rounded-full flex items-center justify-center z-0">
+          <div class="w-12 h-12 bg-indigo-100 dark:bg-indigo-800/50 rounded-full flex items-center justify-center">
+            <div class="w-6 h-6 bg-indigo-400 dark:bg-indigo-600 rounded-full"></div>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- Ubicación -->
-    <div
-      class="opacity-0 translate-y-4 animate-on-scroll"
-      style="transition-delay: 600ms;"
-    >
-      <div
-        class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 sm:p-8 relative overflow-hidden"
-      >
-        <h3
-          class="text-xl sm:text-2xl font-bold text-slate-800 dark:text-white mb-4"
-        >
-          Mi Ubicación
-        </h3>
-        <div
-          class="relative aspect-[16/9] bg-slate-100 dark:bg-slate-700 rounded-lg overflow-hidden flex items-center justify-center"
-        >
-          <p
-            class="text-base font-medium text-slate-600 dark:text-slate-200 z-10"
-          >
-            {contactData.location}
-          </p>
-          <div
-            class="absolute inset-0 flex items-center justify-center text-6xl text-slate-300 dark:text-slate-600 opacity-50"
-          >
-            <Icon name="mdi:map-marker" />
-          </div>
-        </div>
-      </div>
+  <!-- Indicador de desplazamiento -->
+  <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center opacity-0 animate-on-scroll" style="transition-delay: 400ms;">
+    <span class="text-sm text-slate-500 dark:text-slate-400 mb-2">Desplázate</span>
+    <div class="w-6 h-10 border-2 border-slate-400 dark:border-slate-600 rounded-full flex justify-center">
+      <Icon name="mdi:chevron-down" class="w-4 h-4 text-slate-400 dark:text-slate-600 mt-2 animate-scrollBounce" />
     </div>
   </div>
 </section>
 
 <style>
-  /* Patrón de fondo */
+  /* Patrón de fondo (igual que Contact) */
   .bg-grid-slate-200\/20 {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23CBD5E1' fill-opacity='0.2'%3E%3Cpath d='M0 38.59l2.83-2.83 1.41 1.41L1.41 40H0v-1.41zM0 1.4l2.83 2.83 1.41-1.41L1.41 0H0v1.41zM38.59 40l-2.83-2.83 1.41-1.41L40 38.59V40h-1.41zM40 1.41l-2.83 2.83-1.41-1.41L38.59 0H40v1.41zM20 18.6l2.83-2.83 1.41 1.41L21.41 20l2.83 2.83-1.41 1.41L20 21.41l-2.83 2.83-1.41-1.41L18.59 20l-2.83-2.83 1.41-1.41L20 18.59z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   }
@@ -359,9 +165,20 @@ const faqs = [
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23334155' fill-opacity='0.2'%3E%3Cpath d='M0 38.59l2.83-2.83 1.41 1.41L1.41 40H0v-1.41zM0 1.4l2.83 2.83 1.41-1.41L1.41 0H0v1.41zM38.59 40l-2.83-2.83 1.41-1.41L40 38.59V40h-1.41zM40 1.41l-2.83 2.83-1.41-1.41L38.59 0H40v1.41zM20 18.6l2.83-2.83 1.41 1.41L21.41 20l2.83 2.83-1.41 1.41L20 21.41l-2.83 2.83-1.41-1.41L18.59 20l-2.83-2.83 1.41-1.41L20 18.59z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   }
 
+  /* Animaciones */
+  @keyframes scrollBounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(5px); }
+    60% { transform: translateY(3px); }
+  }
+
+  .animate-scrollBounce {
+    animation: scrollBounce 2s infinite;
+  }
+
   /* Estilos para enfoque */
-  button:focus,
-  a:focus {
+  a:focus,
+  button:focus {
     outline: 2px solid #4f46e5;
     outline-offset: 2px;
   }
@@ -369,7 +186,6 @@ const faqs = [
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    // Animaciones
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry, index) => {
@@ -387,60 +203,5 @@ const faqs = [
     document.querySelectorAll(".animate-on-scroll").forEach((el) => {
       observer.observe(el);
     });
-
-    // FAQs
-    const faqItems = document.querySelectorAll("[data-faq-item]");
-    faqItems.forEach((item) => {
-      const toggle = item.querySelector("[data-faq-toggle]");
-      const content = item.querySelector('[id^="faq-content-"]');
-      const icon = toggle.querySelector("[data-faq-icon]");
-
-      toggle.addEventListener("click", () => {
-        const isExpanded = toggle.getAttribute("aria-expanded") === "true";
-
-        // Cerrar otros FAQs
-        faqItems.forEach((otherItem) => {
-          if (otherItem !== item) {
-            const otherToggle = otherItem.querySelector("[data-faq-toggle]");
-            const otherContent = otherItem.querySelector(
-              '[id^="faq-content-"]'
-            );
-            const otherIcon = otherToggle.querySelector("[data-faq-icon]");
-            otherToggle.setAttribute("aria-expanded", "false");
-            otherContent.classList.add("hidden");
-            otherIcon.setAttribute("name", "mdi:plus");
-          }
-        });
-
-        // Alternar estado
-        toggle.setAttribute("aria-expanded", isExpanded ? "false" : "true");
-        icon.setAttribute("name", isExpanded ? "mdi:plus" : "mdi:minus");
-        content.classList.toggle("hidden");
-      });
-    });
-
-    // Validación del formulario
-    const form = document.querySelector("form");
-    if (form) {
-      form.addEventListener("submit", (e) => {
-        e.preventDefault();
-        const email = form.querySelector("#email").value;
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-          alert("Por favor, introduce un email válido.");
-          return;
-        }
-        const button = form.querySelector("button");
-        button.disabled = true;
-        button.innerHTML =
-          '<span class="animate-spin mr-2">⏳</span> Enviando...';
-        setTimeout(() => {
-          button.disabled = false;
-          button.innerHTML =
-            '<span class="mr-2">Enviar Mensaje</span><svg class="w-5 h-5" data-icon="mdi:send"></svg>';
-          alert("Formulario enviado con éxito.");
-          form.reset();
-        }, 1000);
-      });
-    }
   });
 </script>
