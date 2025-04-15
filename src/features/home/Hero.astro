@@ -1,28 +1,29 @@
 ---
 // Hero.astro
 import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
 
 // Puedes personalizar estos datos según tu información
 const heroData = {
-  name: "Tu Nombre",
-  title: "Desarrollador Web Full Stack",
+  name: "Jean Marco Miranda",
+  title: "Desarrollador Fontend & Android",
   shortBio: "Creando experiencias digitales excepcionales con Astro, React y tecnologías modernas",
   ctaPrimary: {
     text: "Ver Proyectos",
-    url: "#projects"
+    url: "/projects"
   },
   ctaSecondary: {
     text: "Contáctame",
-    url: "#contact"
+    url: "/contact"
   },
   // Reemplaza con tus perfiles reales
   socialLinks: [
-    { name: "GitHub", url: "https://github.com/tuusuario", icon: "🐙" },
-    { name: "LinkedIn", url: "https://linkedin.com/in/tuusuario", icon: "💼" },
-    { name: "Twitter", url: "https://twitter.com/tuusuario", icon: "🐦" },
-    { name: "Instagram", url: "https://instagram.com/tuusuario", icon: "📸" }
+    { name: "GitHub", url: "https://github.com/tuusuario", icon: "mdi:github" },
+    { name: "LinkedIn", url: "https://linkedin.com/in/tuusuario", icon: "mdi:linkedin" },
+    { name: "Twitter", url: "https://twitter.com/tuusuario", icon: "mdi:twitter" },
+    { name: "Instagram", url: "https://instagram.com/tuusuario", icon: "mdi:instagram" },
   ],
-  skills: ["HTML", "CSS", "JavaScript", "React", "Astro", "Tailwind CSS", "Node.js"]
+  skills: ["HTML", "CSS", "Typescript", "React", "Astro", "Tailwind CSS", "Android", "Kotlin", "Jetpack Compose"]
 };
 ---
 
@@ -76,13 +77,20 @@ const heroData = {
           </a>
         </div>
 
-        <!-- Enlaces sociales -->
+        <!-- Redes sociales -->
         <div class="pt-4">
           <p class="text-sm text-slate-500 dark:text-slate-400 mb-3">Encuéntrame en:</p>
           <div class="flex space-x-4">
             {heroData.socialLinks.map(link => (
-              <a href={link.url} target="_blank" rel="noopener noreferrer" class="h-10 w-10 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-slate-700 dark:text-slate-300 hover:bg-indigo-600 hover:text-white transition-all" aria-label={link.name} title={link.name}>
-                <span>{link.icon}</span>
+              <a
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="h-10 w-10 rounded-full bg-slate-50 dark:bg-slate-700/50 flex items-center justify-center text-slate-700 dark:text-slate-300 hover:bg-indigo-100 dark:hover:bg-indigo-800/30 transition-all"
+                aria-label={`Visita mi perfil en ${link.name}`}
+                title={link.name}
+              >
+                <Icon name={link.icon} class="w-6 h-6" />
               </a>
             ))}
           </div>
@@ -122,14 +130,6 @@ const heroData = {
           </div>
         </div>
       </div>
-    </div>
-  </div>
-
-  <!-- Animación de desplazamiento -->
-  <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center opacity-0 animate-fadeIn" id="scroll-indicator" style="animation-delay: 2s; animation-fill-mode: forwards;">
-    <span class="text-sm text-slate-500 dark:text-slate-400 mb-2">Desplázate</span>
-    <div class="w-6 h-10 border-2 border-slate-400 dark:border-slate-600 rounded-full flex justify-center">
-      <div class="w-1 h-2 bg-slate-400 dark:bg-slate-600 rounded-full mt-2 animate-scrollBounce"></div>
     </div>
   </div>
 </section>
