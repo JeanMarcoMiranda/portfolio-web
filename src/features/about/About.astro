@@ -1,14 +1,14 @@
 --- // AboutMe.astro
 import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
 
 // Puedes personalizar estos datos según tu información
 const personalInfo = {
-  name: "Tu Nombre",
-  title: "Desarrollador Web Full Stack",
+  name: "Jean Marco Miranda",
+  title: "Desarrollador Frontend & Android",
   description: "Apasionado por crear experiencias web excepcionales utilizando tecnologías modernas como Astro, React, Tailwind CSS y más. Disfruto resolviendo problemas complejos y convertir ideas en productos digitales elegantes y funcionales.",
-  location: "Ciudad, País",
-  email: "tu@email.com",
-  availability: "Disponible para proyectos freelance",
+  location: "Arequipa, Peru",
+  email: "elecord2014@gmail.com",
 };
 
 const skills = [
@@ -38,20 +38,27 @@ const experiences = [
   }
 ];
 
+const socialLinks = [
+    { name: "GitHub", url: "https://github.com/tuusuario", icon: "mdi:github" },
+    { name: "LinkedIn", url: "https://linkedin.com/in/tuusuario", icon: "mdi:linkedin" },
+    { name: "Twitter", url: "https://twitter.com/tuusuario", icon: "mdi:twitter" },
+    { name: "Instagram", url: "https://instagram.com/tuusuario", icon: "mdi:instagram" },
+]
+
 const education = [
   {
-    degree: "Ingeniería en Sistemas / Informática",
-    institution: "Universidad XYZ",
-    year: "2014 - 2018",
+    degree: "Desarrollo de Software e Integración de Sistemas",
+    institution: "TECSUP",
+    year: "2018 - 2021",
   },
   {
-    degree: "Certificación en Desarrollo Web Full Stack",
-    institution: "Plataforma de Educación Online",
-    year: "2019",
+    degree: "Ingeniería de Sistemas e informática",
+    institution: "Universidad Tecnológica del Perú",
+    year: "2022 - 2025",
   }
 ];
 
-const interests = ["Programación", "Diseño UX/UI", "Inteligencia Artificial", "Blockchain", "Fotografía", "Viajes", "Música"];
+const interests = ["Programación", "Diseño UX/UI", "Inteligencia Artificial", "Videojuegos", "Viajes", "Música"];
 
 // Imports dinamicos para los iconos (puedes personalizarlos)
 ---
@@ -94,11 +101,27 @@ const interests = ["Programación", "Diseño UX/UI", "Inteligencia Artificial", 
                 <span class="mr-2">📧</span>
                 <a href={`mailto:${personalInfo.email}`} class="text-indigo-600 dark:text-indigo-400 hover:underline transition">{personalInfo.email}</a>
               </div>
-              <div class="flex items-center">
-                <span class="mr-2">🟢</span>
-                <span>{personalInfo.availability}</span>
-              </div>
             </div>
+
+         <!-- Redes sociales -->
+        <div class="pt-4">
+          <p class="text-sm text-slate-500 dark:text-slate-400 mb-3">Encuéntrame en:</p>
+          <div class="flex space-x-4">
+            {socialLinks.map(link => (
+              <a
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="h-10 w-10 rounded-full bg-slate-50 dark:bg-slate-700/50 flex items-center justify-center text-slate-700 dark:text-slate-300 hover:bg-indigo-100 dark:hover:bg-indigo-800/30 transition-all"
+                aria-label={`Visita mi perfil en ${link.name}`}
+                title={link.name}
+              >
+                <Icon name={link.icon} class="w-6 h-6" />
+              </a>
+            ))}
+          </div>
+        </div>
+                
 
             <!-- Botón de Descarga CV -->
             <button class="mt-6 w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 px-6 rounded-lg shadow-md transition-all flex items-center justify-center group">
@@ -106,22 +129,6 @@ const interests = ["Programación", "Diseño UX/UI", "Inteligencia Artificial", 
               <span>⬇️</span>
             </button>
           </div>
-        </div>
-
-        <!-- Social Links -->
-        <div class="flex justify-center space-x-4">
-          <a href="#" class="h-12 w-12 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-slate-700 dark:text-slate-300 hover:bg-indigo-600 hover:text-white transition-all">
-            <span>🌐</span>
-          </a>
-          <a href="#" class="h-12 w-12 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-slate-700 dark:text-slate-300 hover:bg-indigo-600 hover:text-white transition-all">
-            <span>💼</span>
-          </a>
-          <a href="#" class="h-12 w-12 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-slate-700 dark:text-slate-300 hover:bg-indigo-600 hover:text-white transition-all">
-            <span>🐙</span>
-          </a>
-          <a href="#" class="h-12 w-12 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-slate-700 dark:text-slate-300 hover:bg-indigo-600 hover:text-white transition-all">
-            <span>🐦</span>
-          </a>
         </div>
       </div>
 
