@@ -1,12 +1,13 @@
 --- // AboutMe.astro
 import { Image } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
+import profileImage from '../../assets/profile.jpg'; // ajusta la ruta según dónde esté tu componente
 
 // Puedes personalizar estos datos según tu información
 const personalInfo = {
   name: "Jean Marco Miranda",
   title: "Desarrollador Frontend & Android",
-  description: "Apasionado por crear experiencias web excepcionales utilizando tecnologías modernas como Astro, React, Tailwind CSS y más. Disfruto resolviendo problemas complejos y convertir ideas en productos digitales elegantes y funcionales.",
+  description: "Soy desarrollador web y móvil con experiencia en React, Kotlin y Jetpack Compose. Me apasiona crear experiencias fluidas e intuitivas, optimizando el rendimiento y la arquitectura del código. Siempre estoy explorando nuevas tecnologías y mejores prácticas para ofrecer soluciones eficientes y escalables.",
   location: "Arequipa, Peru",
   email: "elecord2014@gmail.com",
 };
@@ -82,11 +83,13 @@ const interests = ["Programación", "Diseño UX/UI", "Inteligencia Artificial", 
         <div class="relative group">
           <div class="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl blur opacity-25 group-hover:opacity-75 transition duration-300"></div>
           <div class="relative bg-white dark:bg-slate-800 p-6 rounded-lg shadow-xl">
-            <!-- Sustituye con tu foto real -->
-            <div class="aspect-square bg-slate-200 dark:bg-slate-700 rounded-lg mb-6 overflow-hidden">
-              <div class="w-full h-full flex items-center justify-center text-slate-400 dark:text-slate-500">
-                <span class="text-6xl">📷</span>
-              </div>
+            <!-- Profile image -->
+            <div class="aspect-square rounded-lg mb-6 overflow-hidden shadow-md">
+              <Image
+                src={profileImage}
+                alt="Foto de Jean Marco Miranda"
+                class="grayscale rounded-xl shadow-lg ring-1 ring-slate-200 dark:ring-slate-700 transition-transform duration-300 ease-in-out hover:scale-105"
+              />
             </div>
 
             <h3 class="text-2xl font-bold text-slate-800 dark:text-white mb-2">{personalInfo.name}</h3>
