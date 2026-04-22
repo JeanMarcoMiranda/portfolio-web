@@ -1,1 +1,44 @@
-<p>hero works!</p>
+<section class="hero-section" id="home">
+  <div class="glow-overlay"></div>
+
+  <div class="hero-container">
+    <div class="hero-content">
+      <p class="hero-class" data-aos="fade-down">
+        <span class="pixel-icon">▶</span> CLASE: FULLSTACK & MOBILE DEVELOPER
+      </p>
+
+      <h1 class="hero-name" data-aos="fade-up">
+        Jean Marco <span class="text-primary">Miranda</span>
+      </h1>
+
+      <p class="hero-role" data-aos="fade-up" data-aos-delay="200">
+        // Transformo ideas en experiencias digitales excepcionales
+      </p>
+
+      <p class="hero-desc" data-aos="fade-up" data-aos-delay="300">
+        Especializado en el desarrollo de aplicaciones robustas y diseño de interfaces minimalistas
+        bajo la filosofía Edge-to-Edge.
+      </p>
+
+      <div class="hero-stats" data-aos="zoom-in" data-aos-delay="500">
+        @for (stat of stats; track stat.label) {
+          <div class="stat-item">
+            <span class="stat-value">{{ stat.value }}</span>
+            <span class="stat-label">{{ stat.label }}</span>
+          </div>
+        }
+      </div>
+
+      <div class="hero-actions" data-aos="fade-up" data-aos-delay="700">
+        <button class="btn btn-primary">ACEPTAR MISIÓN (CONTACTO)</button>
+        <button class="btn btn-outline">VER LOG DE PROYECTOS</button>
+      </div>
+    </div>
+
+    <div class="hero-visual" data-aos="fade-left">
+      <div class="pixel-frame">
+        <div class="inner-glow"></div>
+      </div>
+    </div>
+  </div>
+</section>

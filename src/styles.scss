@@ -1,9 +1,38 @@
-/* You can add global styles to this file, and also import other style files */
+/* Importamos los tokens primero */
 @import 'styles/tokens';
+
+/* Reseteo básico y Scroll behavior */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
 
 body {
   background-color: var(--color-bg);
   color: var(--color-text-1);
   font-family: var(--font-body);
-  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+/* Clases de utilidad tipográfica */
+.pixel-text {
+  font-family: var(--font-pixel);
+}
+.mono-text {
+  font-family: var(--font-mono);
+}
+
+/* Contenedor principal para Edge-to-Edge */
+.page-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }

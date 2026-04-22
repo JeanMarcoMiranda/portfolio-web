@@ -1,17 +1,23 @@
+/* Fuentes de Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
 :root {
   /* Core Palette */
-  --color-bg: #0B0C15;
-  --color-bg-card: #1A1B2E;
-  --color-primary: #7C6AF7;
-  --color-accent-teal: #2ECFA8;
-  --color-accent-amber: #F0A500;
-  
+  --color-bg: #0b0c15;
+  --color-bg-card: #1a1b2e;
+  --color-primary: #7c6af7;
+  --color-primary-glow: rgba(124, 106, 247, 0.2);
+  --color-accent-teal: #2ecfa8;
+  --color-accent-amber: #f0a500;
+  --color-text-1: #f5f5f5;
+  --color-text-2: #a3a3a3;
+  --color-text-3: #626475;
+
   /* Typography */
-  --font-pixel: 'Press Start 2P', monospace;
+  --font-pixel: 'Press Start 2P', system-ui;
   --font-mono: 'JetBrains Mono', monospace;
   --font-body: 'Inter', sans-serif;
 
-  /* Spacing & Transitions */
-  --radius-lg: 12px;
-  --transition: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  /* Global Settings */
+  --transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
