@@ -1,0 +1,17 @@
+:root {
+  /* Core Palette */
+  --color-bg: #0B0C15;
+  --color-bg-card: #1A1B2E;
+  --color-primary: #7C6AF7;
+  --color-accent-teal: #2ECFA8;
+  --color-accent-amber: #F0A500;
+  
+  /* Typography */
+  --font-pixel: 'Press Start 2P', monospace;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-body: 'Inter', sans-serif;
+
+  /* Spacing & Transitions */
+  --radius-lg: 12px;
+  --transition: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
