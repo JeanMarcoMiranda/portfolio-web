@@ -1,0 +1,23 @@
+<nav [class.crolled]="isScrolled()" [class.menu-active]="isMenuOpen()">
+  <div class="nav-container">
+    <div class="logo">
+      <span class="pixel-text">JEAN</span>
+      <span class="cursor">_</span>
+    </div>
+
+    <ul class="nav-links">
+      <li><a href="#home">INICIO</a></li>
+      <li><a href="#projects">MISIONES</a></li>
+      <li><a href="#about">STATS</a></li>
+      <li><a href="#contact">CONTACTO</a></li>
+    </ul>
+
+    <button class="menu-toggle" (click)="toggleMenu()">
+      <div class="bar"></div>
+    </button>
+  </div>
+
+  <div class="scroll-progress-container">
+    <div class="progress-bar"></div>
+  </div>
+</nav>
