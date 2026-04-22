@@ -7,11 +7,18 @@
   --color-bg-card: #1a1b2e;
   --color-primary: #7c6af7;
   --color-primary-glow: rgba(124, 106, 247, 0.2);
+  --color-primary-dim: rgba(124, 106, 247, 0.3);
   --color-accent-teal: #2ecfa8;
   --color-accent-amber: #f0a500;
   --color-text-1: #f5f5f5;
   --color-text-2: #a3a3a3;
   --color-text-3: #626475;
+
+  /* Map Zone Colors */
+  --color-zone-about: #2ecfa8;      /* Teal  — Stats / Ficha */
+  --color-zone-projects: #f0a500;   /* Amber — Quests / Proyectos */
+  --color-zone-contact: #e05c7a;    /* Coral — Party / Contacto */
+  --color-zone-skills: #7c6af7;     /* Purple — Skills / Habilidades */
 
   /* Typography */
   --font-pixel: 'Press Start 2P', system-ui;
@@ -20,4 +27,5 @@
 
   /* Global Settings */
   --transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --map-cell: 24px;
 }

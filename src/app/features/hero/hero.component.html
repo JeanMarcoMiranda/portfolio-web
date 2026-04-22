@@ -1,44 +1,238 @@
-<section class="hero-section" id="home">
-  <div class="glow-overlay"></div>
+<section class="hero-wrapper" id="home">
 
-  <div class="hero-container">
-    <div class="hero-content">
-      <p class="hero-class" data-aos="fade-down">
-        <span class="pixel-icon">▶</span> CLASE: FULLSTACK & MOBILE DEVELOPER
-      </p>
+  <!-- Dynamic cursor glow -->
+  <div
+    class="dynamic-glow"
+    [style.left.px]="mousePos().x"
+    [style.top.px]="mousePos().y"
+  ></div>
 
-      <h1 class="hero-name" data-aos="fade-up">
-        Jean Marco <span class="text-primary">Miranda</span>
+  <div class="hero-layout">
+
+    <!-- ═══════════════════════════════════════════════
+         LEFT — Player Info
+    ═══════════════════════════════════════════════ -->
+    <div class="hero-info" data-aos="fade-right">
+
+      <!-- Status Badge -->
+      <div class="status-badge">
+        <span class="indicator"></span>
+        <span class="pixel-text">PLAYER_ONE: MIRANDA_JEAN</span>
+      </div>
+
+      <!-- Title -->
+      <h1 class="main-title">
+        Construyo soluciones <br />
+        <span class="text-gradient">digitales de alto nivel.</span>
       </h1>
 
-      <p class="hero-role" data-aos="fade-up" data-aos-delay="200">
-        // Transformo ideas en experiencias digitales excepcionales
+      <!-- Description -->
+      <p class="description mono-text">
+        // Desarrollador Fullstack &amp; Instructor técnico.<br/>
+        // Especializado en arquitecturas modernas y optimización de UX.
       </p>
 
-      <p class="hero-desc" data-aos="fade-up" data-aos-delay="300">
-        Especializado en el desarrollo de aplicaciones robustas y diseño de interfaces minimalistas
-        bajo la filosofía Edge-to-Edge.
-      </p>
-
-      <div class="hero-stats" data-aos="zoom-in" data-aos-delay="500">
-        @for (stat of stats; track stat.label) {
-          <div class="stat-item">
-            <span class="stat-value">{{ stat.value }}</span>
-            <span class="stat-label">{{ stat.label }}</span>
+      <!-- RPG Stats -->
+      <div class="stats-grid">
+        @for (item of stats; track item.label) {
+          <div class="stat-card">
+            <span class="label">{{ item.label }}</span>
+            <span class="value pixel-text">{{ item.value }}</span>
           </div>
         }
       </div>
 
-      <div class="hero-actions" data-aos="fade-up" data-aos-delay="700">
-        <button class="btn btn-primary">ACEPTAR MISIÓN (CONTACTO)</button>
-        <button class="btn btn-outline">VER LOG DE PROYECTOS</button>
+      <!-- Skill Bars -->
+      <div class="skills-section">
+        <span class="section-label mono-text">// SKILL_TREE</span>
+        <div class="skills-list">
+          @for (skill of skills; track skill.name) {
+            <div class="skill-row">
+              <div class="skill-meta">
+                <span class="skill-name mono-text">{{ skill.name }}</span>
+                <span class="skill-level mono-text">{{ skill.level }}</span>
+              </div>
+              <div class="skill-track">
+                <div
+                  class="skill-fill"
+                  [style.width.%]="animatedSkills() ? skill.level : 0"
+                  [style.background]="skill.color"
+                ></div>
+              </div>
+            </div>
+          }
+        </div>
       </div>
+
+      <!-- CTAs -->
+      <div class="cta-group">
+        <a (click)="navigateTo('contact')" class="btn btn-primary pixel-text">
+          ACEPTAR MISIÓN
+        </a>
+        <a (click)="navigateTo('projects')" class="btn btn-ghost mono-text">
+          → VER QUESTS
+        </a>
+      </div>
+
     </div>
 
-    <div class="hero-visual" data-aos="fade-left">
-      <div class="pixel-frame">
-        <div class="inner-glow"></div>
+    <!-- ═══════════════════════════════════════════════
+         RIGHT — Pixel Art Interactive Map
+    ═══════════════════════════════════════════════ -->
+    <div class="hero-map" data-aos="fade-left">
+
+      <!-- HUD Frame -->
+      <div class="map-hud-top">
+        <span class="pixel-text hud-label">WORLD MAP</span>
+        <span class="mono-text hud-coords">{{ hudCoords() }}</span>
       </div>
-    </div>
-  </div>
+
+      <!-- SVG Map Canvas -->
+      <div class="map-container">
+
+        <svg
+          class="map-svg"
+          [attr.viewBox]="'0 0 ' + SVG_W + ' ' + SVG_H"
+          preserveAspectRatio="xMidYMid meet"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <!-- ── Defs: filters & gradients ── -->
+          <defs>
+            <filter id="glow-teal">
+              <feGaussianBlur stdDeviation="4" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <filter id="glow-amber">
+              <feGaussianBlur stdDeviation="4" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <filter id="glow-coral">
+              <feGaussianBlur stdDeviation="4" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <!-- Fog of war gradient -->
+            <radialGradient id="fog" cx="50%" cy="50%" r="55%">
+              <stop offset="0%"   stop-color="transparent"/>
+              <stop offset="100%" stop-color="#0b0c15" stop-opacity="0.6"/>
+            </radialGradient>
+          </defs>
+
+          <!-- ── Terrain zones (pixel polygons) ── -->
+          <!-- About zone -->
+          <polygon
+            class="zone zone-about"
+            [class.zone-active]="activeNode()?.zoneType === 'about'"
+            points="50,60 200,40 240,160 90,180"
+          />
+          <!-- Projects zone -->
+          <polygon
+            class="zone zone-projects"
+            [class.zone-active]="activeNode()?.zoneType === 'projects'"
+            points="350,320 500,300 560,430 400,460"
+          />
+          <!-- Contact zone -->
+          <polygon
+            class="zone zone-contact"
+            [class.zone-active]="activeNode()?.zoneType === 'contact'"
+            points="480,30 650,50 660,170 500,160"
+          />
+
+          <!-- ── Grid dots (pixel art feel) ── -->
+          <pattern id="grid" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
+            <circle cx="1" cy="1" r="1" fill="rgba(124,106,247,0.18)"/>
+          </pattern>
+          <rect width="100%" height="100%" fill="url(#grid)"/>
+
+          <!-- ── Connecting paths (animated dashes) ── -->
+          @for (path of mapPaths(); track path.id) {
+            <path
+              class="map-path"
+              [attr.d]="path.d"
+              fill="none"
+              stroke="rgba(124,106,247,0.4)"
+              stroke-width="2"
+              stroke-dasharray="8 6"
+            />
+          }
+
+          <!-- ── Character cursor (moves to active node) ── -->
+          @if (cursorPos(); as pos) {
+            <g class="character-cursor" [attr.transform]="'translate(' + (pos.x - 10) + ',' + (pos.y - 28) + ')'">
+              <!-- Pixel character (8x8 grid → drawn as rectangles) -->
+              <rect x="4"  y="0"  width="8" height="4" fill="#f5f5f5"/>
+              <rect x="2"  y="4"  width="12" height="4" fill="#7c6af7"/>
+              <rect x="0"  y="8"  width="16" height="4" fill="#7c6af7"/>
+              <rect x="2"  y="12" width="4"  height="4" fill="#f5f5f5"/>
+              <rect x="10" y="12" width="4"  height="4" fill="#f5f5f5"/>
+              <!-- Shadow -->
+              <ellipse cx="8" cy="20" rx="6" ry="2" fill="rgba(124,106,247,0.3)"/>
+            </g>
+          }
+
+          <!-- ── Map Nodes ── -->
+          @for (node of mapNodes; track node.id) {
+            <g
+              class="map-node-group"
+              [class.node-active]="activeNode()?.id === node.id"
+              [attr.transform]="'translate(' + toSvgX(node.x) + ',' + toSvgY(node.y) + ')'"
+              [style.color]="node.color"
+              (mouseenter)="activeNode.set(node)"
+              (mouseleave)="activeNode.set(null)"
+              (click)="navigateTo(node.id)"
+              style="cursor:pointer"
+            >
+              <!-- Pulse ring (outer) — stroke driven by CSS currentColor -->
+              <circle class="pulse-ring" r="24" fill="none" stroke="currentColor" stroke-width="1.5"/>
+              <!-- Zone ring (inner) — stroke driven by CSS currentColor -->
+              <circle class="node-ring" r="16" fill="rgba(11,12,21,0.85)" stroke="currentColor" stroke-width="2"/>
+              <!-- Icon background square -->
+              <rect x="-9" y="-9" width="18" height="18" rx="3"
+                fill="rgba(11,12,21,0.9)" stroke="currentColor" stroke-width="0.5"/>
+              <!-- Icon text -->
+              <text
+                class="node-icon"
+                x="0" y="4"
+                text-anchor="middle"
+                font-size="12"
+              >{{ node.icon }}</text>
+
+              <!-- Tooltip label -->
+              <g class="node-tooltip-group">
+                <rect x="18" y="-14" width="100" height="32" rx="3"
+                  fill="rgba(26,27,46,0.95)" stroke="currentColor" stroke-width="0.8"/>
+                <text x="26" y="-1" font-size="7" fill="#f5f5f5"
+                  font-family="'Press Start 2P', system-ui">{{ node.label }}</text>
+                <text x="26" y="12" font-size="7"
+                  font-family="'JetBrains Mono', monospace"
+                  fill="rgba(163,163,163,0.9)">{{ node.desc }}</text>
+              </g>
+            </g>
+          }
+
+          <!-- ── Fog overlay ── -->
+          <rect width="100%" height="100%" fill="url(#fog)" pointer-events="none"/>
+
+        </svg>
+
+        <!-- Scanlines overlay -->
+        <div class="scanlines" aria-hidden="true"></div>
+
+      </div><!-- /map-container -->
+
+      <!-- HUD bottom bar -->
+      <div class="map-hud-bottom">
+        <span class="mono-text">
+          @if (activeNode(); as node) {
+            ▶ {{ node.desc }} — Click para navegar
+          } @else {
+            Hover sobre un nodo para explorar
+          }
+        </span>
+        <span class="pixel-text hud-ver">v2.4.1</span>
+      </div>
+
+    </div><!-- /hero-map -->
+
+  </div><!-- /hero-layout -->
+
 </section>
