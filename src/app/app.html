@@ -1,8 +1,11 @@
 <app-navbar />
+<app-page-transition />
 
-<main class="page-container">
-  <app-hero />
-  <app-about />
-</main>
-
-<router-outlet />
+<div class="viewport">
+  <div class="section-panel" [class.active]="nav.currentSection() === 'home'">
+    <app-hero />
+  </div>
+  <div class="section-panel" [class.active]="nav.currentSection() === 'about'">
+    <app-about />
+  </div>
+</div>

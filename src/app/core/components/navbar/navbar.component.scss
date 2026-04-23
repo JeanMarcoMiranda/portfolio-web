@@ -1,28 +1,26 @@
-// ── Breakpoints ────────────────────────────────────────────────────────────
 $bp-mobile: 768px;
 
-// ── Nav root ──────────────────────────────────────────────────────────────
+// ── Nav root ──────────────────────────────────────────────────────────────────
 nav {
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 1000;
   padding: 1.5rem 0;
-  transition: var(--transition);
+  transition: background 0.3s ease, padding 0.3s ease, backdrop-filter 0.3s ease;
   background: transparent;
 
-  // Activated when user scrolls > 50px
   &.scrolled {
     padding: 1rem 0;
     background: rgba(11, 12, 21, 0.85);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
-    border-bottom: 1px solid rgba(124, 106, 247, 0.25);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid rgba(124, 106, 247, 0.2);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.25);
   }
 }
 
-// ── Container ─────────────────────────────────────────────────────────────
+// ── Container ─────────────────────────────────────────────────────────────────
 .nav-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -32,7 +30,7 @@ nav {
   padding: 0 2rem;
 }
 
-// ── Logo ──────────────────────────────────────────────────────────────────
+// ── Logo ──────────────────────────────────────────────────────────────────────
 .logo {
   display: flex;
   align-items: center;
@@ -45,7 +43,7 @@ nav {
     font-size: 1.2rem;
     color: var(--color-primary);
     letter-spacing: -1px;
-    transition: var(--transition);
+    transition: color 0.25s ease;
   }
 
   .cursor {
@@ -66,7 +64,7 @@ nav {
   50%       { opacity: 0; }
 }
 
-// ── Nav links ──────────────────────────────────────────────────────────────
+// ── Nav links ─────────────────────────────────────────────────────────────────
 .nav-links {
   display: flex;
   gap: 2.5rem;
@@ -84,65 +82,43 @@ nav {
     display: flex;
     align-items: center;
     gap: 6px;
-    transition: color 0.25s ease;
+    transition: color 0.2s ease;
     letter-spacing: 0.05em;
 
     .link-prefix {
       color: var(--color-primary);
       opacity: 0;
       transform: translateX(-6px);
-      transition:
-        opacity 0.2s ease,
-        transform 0.2s ease;
+      transition: opacity 0.2s ease, transform 0.2s ease;
       font-size: 0.75rem;
     }
 
     &::after {
       content: '';
       position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 0;
-      height: 1px;
+      bottom: -4px; left: 0;
+      width: 0; height: 1px;
       background: var(--color-accent-teal);
       transition: width 0.25s ease;
     }
 
-    &:hover,
-    &.active {
+    &:hover, &.active {
       color: var(--color-text-1);
-
-      .link-prefix {
-        opacity: 1;
-        transform: translateX(0);
-      }
-
-      &::after {
-        width: 100%;
-      }
+      .link-prefix { opacity: 1; transform: translateX(0); }
+      &::after { width: 100%; }
     }
 
     &.active {
       color: var(--color-accent-teal);
-
-      .link-prefix {
-        color: var(--color-accent-teal);
-      }
-
-      &::after {
-        background: var(--color-accent-teal);
-        box-shadow: 0 0 8px var(--color-accent-teal);
-      }
+      .link-prefix { color: var(--color-accent-teal); }
+      &::after { box-shadow: 0 0 8px var(--color-accent-teal); }
     }
   }
 
-  // ── Mobile overlay ─────────────────────────────────────────────────────
+  // Mobile overlay
   @media (max-width: $bp-mobile) {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    inset: 0;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -152,9 +128,8 @@ nav {
     pointer-events: none;
     opacity: 0;
     transform: translateY(-10px);
-    transition:
-      opacity 0.3s ease,
-      transform 0.3s ease;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 999;
 
     &.open {
       pointer-events: all;
@@ -162,78 +137,37 @@ nav {
       transform: translateY(0);
     }
 
-    a {
-      font-size: 1.1rem;
-      letter-spacing: 0.1em;
-    }
+    a { font-size: 1.1rem; letter-spacing: 0.1em; }
   }
 }
 
-// ── Hamburger button ───────────────────────────────────────────────────────
+// ── Hamburger ─────────────────────────────────────────────────────────────────
 .menu-toggle {
   display: none;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 5px;
-  width: 36px;
-  height: 36px;
+  width: 36px; height: 36px;
   padding: 0;
   background: transparent;
   border: none;
   cursor: pointer;
-  z-index: 1100; // above the mobile overlay
+  z-index: 1100;
 
   .bar {
     display: block;
-    width: 22px;
-    height: 2px;
+    width: 22px; height: 2px;
     background: var(--color-primary);
     border-radius: 2px;
-    transition:
-      transform 0.3s ease,
-      opacity 0.3s ease,
-      width 0.3s ease;
-    transform-origin: center;
+    transition: transform 0.3s ease, opacity 0.3s ease, width 0.3s ease;
   }
 
-  // Animated → X when open
   &.open {
-    .bar-1 {
-      transform: translateY(7px) rotate(45deg);
-    }
-    .bar-2 {
-      opacity: 0;
-      width: 0;
-    }
-    .bar-3 {
-      transform: translateY(-7px) rotate(-45deg);
-    }
+    .bar-1 { transform: translateY(7px) rotate(45deg); }
+    .bar-2 { opacity: 0; width: 0; }
+    .bar-3 { transform: translateY(-7px) rotate(-45deg); }
   }
 
-  @media (max-width: $bp-mobile) {
-    display: flex;
-  }
-}
-
-// ── Scroll Progress Bar ────────────────────────────────────────────────────
-.scroll-progress-container {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: rgba(255, 255, 255, 0.04);
-
-  .progress-bar {
-    height: 100%;
-    background: linear-gradient(
-      90deg,
-      var(--color-primary),
-      var(--color-accent-teal)
-    );
-    box-shadow: 0 0 8px var(--color-primary-glow);
-    transition: width 0.1s linear;
-    will-change: width;
-  }
+  @media (max-width: $bp-mobile) { display: flex; }
 }

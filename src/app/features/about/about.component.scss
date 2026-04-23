@@ -1,6 +1,7 @@
 .about-section {
-  padding: 100px 0;
-  background-color: var(--color-bg-2); // Fondo alternado
+  min-height: 100%;
+  padding: 100px 0 60px;
+  background-color: var(--color-bg-2);
 }
 
 .character-grid {

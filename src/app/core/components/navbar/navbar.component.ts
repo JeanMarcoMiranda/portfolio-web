@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
-import { ScrollService, SectionId } from '../../services/scroll.service';
+import { Component, computed, inject, signal } from '@angular/core';
+import { NavigationService, SectionId } from '../../services/navigation.service';
 
 @Component({
   selector: 'app-navbar',
@@ -10,14 +10,13 @@ import { ScrollService, SectionId } from '../../services/scroll.service';
   styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent {
-  private readonly scrollService = inject(ScrollService);
+  private readonly nav = inject(NavigationService);
 
-  // Exposed from service
-  activeSection = this.scrollService.activeSection;
-  scrollProgress = this.scrollService.scrollProgress;
+  activeSection = this.nav.currentSection;
 
-  // Local state
-  isScrolled = signal(false);
+  // Navbar becomes opaque on any section other than home
+  isScrolled = computed(() => this.nav.currentSection() !== 'home' || this.nav.isTransitioning());
+
   isMenuOpen = signal(false);
 
   readonly navLinks: { id: SectionId; label: string }[] = [
@@ -27,20 +26,8 @@ export class NavbarComponent {
     { id: 'contact',  label: 'CONTACTO' },
   ];
 
-  constructor() {
-    // Listen to scroll for navbar background blur effect
-    if (typeof window !== 'undefined') {
-      window.addEventListener(
-        'scroll',
-        () => this.isScrolled.set(window.scrollY > 50),
-        { passive: true },
-      );
-    }
-  }
-
-  scrollTo(id: SectionId): void {
-    this.scrollService.scrollTo(id);
-    // Close mobile menu after navigation
+  navigateTo(id: SectionId): void {
+    this.nav.navigateTo(id);
     this.isMenuOpen.set(false);
   }
 

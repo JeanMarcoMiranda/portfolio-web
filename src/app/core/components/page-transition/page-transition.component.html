@@ -1,0 +1,29 @@
+@if (nav.isTransitioning()) {
+  <div
+    class="transition-overlay"
+    [style.--zone-color]="nav.pendingZone()?.color ?? 'var(--color-primary)'"
+  >
+    <!-- Pixel-art horizontal bars -->
+    <div class="bars-wrap">
+      @for (bar of bars; track bar) {
+        <div class="bar" [style.--i]="bar"></div>
+      }
+    </div>
+
+    <!-- Zone announcement card -->
+    <div class="zone-card">
+      <span class="entering-label mono-text">// ENTERING ZONE</span>
+      <span class="zone-name pixel-text">{{ nav.pendingZone()?.zoneName }}</span>
+      <span class="zone-desc mono-text">{{ nav.pendingZone()?.desc }}</span>
+      <div class="load-track">
+        <div class="load-fill"></div>
+      </div>
+    </div>
+
+    <!-- Corner decorations (pixel art HUD style) -->
+    <div class="corner corner-tl"></div>
+    <div class="corner corner-tr"></div>
+    <div class="corner corner-bl"></div>
+    <div class="corner corner-br"></div>
+  </div>
+}

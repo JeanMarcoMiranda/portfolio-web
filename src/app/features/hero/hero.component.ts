@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { isPlatformBrowser, CommonModule } from '@angular/common';
 import { fromEvent, Subscription } from 'rxjs';
-import { ScrollService } from '../../core/services/scroll.service';
+import { NavigationService, SectionId } from '../../core/services/navigation.service';
 
 // ── Interfaces ──────────────────────────────────────────────────────────────
 
@@ -55,8 +55,8 @@ function pixelPath(
 })
 export class HeroComponent implements OnInit, OnDestroy {
 
-  private readonly platformId  = inject(PLATFORM_ID);
-  private readonly scrollService = inject(ScrollService);
+  private readonly platformId    = inject(PLATFORM_ID);
+  private readonly nav           = inject(NavigationService);
 
   private sub!: Subscription;
 
@@ -168,7 +168,7 @@ export class HeroComponent implements OnInit, OnDestroy {
   // ── Helpers ───────────────────────────────────────────────────────────────
 
   navigateTo(id: string): void {
-    this.scrollService.scrollTo(id);
+    this.nav.navigateTo(id as SectionId);
   }
 
   toSvgX(pct: number): number { return toSVG(pct, this.SVG_W); }
