@@ -99,12 +99,102 @@
   }
 }
 
-// Description
+// Description (kept for fallback)
 .description {
   font-size: 0.85rem;
   color: var(--color-text-3);
   line-height: 1.75;
   margin: 0;
+}
+
+// ── VT323 class ──────────────────────────────────────────────────────────────
+
+.vt323 {
+  font-family: var(--font-vt323);
+  font-size: 1.15rem;
+  line-height: 1.3;
+  letter-spacing: 0.02em;
+}
+
+// ── Terminal decorativa ───────────────────────────────────────────────────────
+
+.terminal-block {
+  background: rgba(8, 9, 16, 0.75);
+  border: 1px solid rgba(46, 207, 168, 0.2);
+  border-left: 2px solid var(--color-accent-teal);
+  overflow: hidden;
+}
+
+.terminal-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 6px 12px;
+  background: rgba(46, 207, 168, 0.06);
+  border-bottom: 1px solid rgba(46, 207, 168, 0.12);
+
+  .t-dots { display: flex; gap: 5px; }
+
+  .t-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    &.td-red    { background: #e05c7a; }
+    &.td-yellow { background: #f0a500; }
+    &.td-green  { background: #2ecfa8; }
+  }
+
+  .t-title { font-size: 0.62rem; color: var(--color-text-3); }
+}
+
+.terminal-body {
+  padding: 8px 12px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.t-line {
+  display: flex;
+  align-items: baseline;
+  min-height: 1.5rem;
+}
+
+.t-prompt { font-size: 0.72rem; color: var(--color-accent-teal); }
+.t-cmd    { font-size: 0.72rem; color: var(--color-text-2);      }
+
+.t-out { padding-left: 12px; }
+.t-out .vt323 { color: var(--color-text-1); }
+
+// Typewriter cursor
+.tw-wrap { display: inline-flex; align-items: center; }
+.tw-cur  {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--color-accent-teal);
+  margin-left: 2px;
+  animation: tw-blink 0.75s step-end infinite;
+}
+
+@keyframes tw-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+// Available badge
+.avail-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  .avail-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--color-accent-teal);
+    flex-shrink: 0;
+    animation: breathe 2s ease-in-out infinite;
+  }
+
+  .avail-text { color: var(--color-accent-teal); }
 }
 
 // ── Stats Grid ────────────────────────────────────────────────────
@@ -181,9 +271,20 @@
     color: var(--color-text-2);
   }
 
-  .skill-level {
-    font-size: 0.65rem;
-    color: var(--color-text-3);
+  // Star rating (replaces numeric level)
+  .skill-stars {
+    display: flex;
+    gap: 2px;
+    .star {
+      font-size: 0.7rem;
+      color: rgba(255, 255, 255, 0.12);
+      line-height: 1;
+      transition: color 0.2s ease;
+      &.star-on {
+        color: var(--color-accent-amber);
+        text-shadow: 0 0 6px rgba(240, 165, 0, 0.55);
+      }
+    }
   }
 }
 

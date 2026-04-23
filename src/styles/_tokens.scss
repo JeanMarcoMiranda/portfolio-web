@@ -1,5 +1,5 @@
 /* Fuentes de Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;500&display=swap');
 
 :root {
   /* Core Palette */
@@ -20,13 +20,15 @@
   /* Map Zone Colors */
   --color-zone-about: #2ecfa8;      /* Teal  — Stats / Ficha */
   --color-zone-projects: #f0a500;   /* Amber — Quests / Proyectos */
-  --color-zone-contact: #e05c7a;    /* Coral — Party / Contacto */
-  --color-zone-skills: #7c6af7;     /* Purple — Skills / Habilidades */
+  --color-zone-contact:  #e05c7a;    /* Coral — Party / Contacto */
+  --color-zone-skills:   #7c6af7;    /* Purple — Skills / Habilidades */
+  --color-coral:         #f26b5b;    /* Coral — CTA secundario / urgencia */
 
   /* Typography */
   --font-pixel: 'Press Start 2P', system-ui;
-  --font-mono: 'JetBrains Mono', monospace;
-  --font-body: 'Inter', sans-serif;
+  --font-vt323:  'VT323', monospace;
+  --font-mono:   'JetBrains Mono', monospace;
+  --font-body:   'Inter', sans-serif;
 
   /* Global Settings */
   --transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);

@@ -26,11 +26,43 @@
         <span class="text-gradient">digitales de alto nivel.</span>
       </h1>
 
-      <!-- Description -->
-      <p class="description mono-text">
-        // Desarrollador Fullstack &amp; Instructor técnico.<br/>
-        // Especializado en arquitecturas modernas y optimización de UX.
-      </p>
+      <!-- Terminal decorativa -->
+      <div class="terminal-block">
+        <div class="terminal-header">
+          <div class="t-dots">
+            <span class="t-dot td-red"></span>
+            <span class="t-dot td-yellow"></span>
+            <span class="t-dot td-green"></span>
+          </div>
+          <span class="mono-text t-title">jean&#64;portfolio:~</span>
+        </div>
+        <div class="terminal-body">
+          <div class="t-line">
+            <span class="t-prompt mono-text">$</span>
+            <span class="t-cmd mono-text"> whoami</span>
+          </div>
+          <div class="t-line t-out">
+            <span class="vt323">jean_marco_miranda</span>
+          </div>
+          <div class="t-line">
+            <span class="t-prompt mono-text">$</span>
+            <span class="t-cmd mono-text"> cat role.txt</span>
+          </div>
+          <div class="t-line t-out">
+            <span class="vt323 tw-wrap">{{ typewriterText() }}<span class="tw-cur">█</span></span>
+          </div>
+          <div class="t-line">
+            <span class="t-prompt mono-text">$</span>
+            <span class="t-cmd mono-text"> ./status</span>
+          </div>
+          <div class="t-line t-out">
+            <span class="avail-wrap">
+              <span class="avail-dot"></span>
+              <span class="vt323 avail-text">AVAILABLE_FOR_NEW_QUESTS</span>
+            </span>
+          </div>
+        </div>
+      </div>
 
       <!-- RPG Stats -->
       <div class="stats-grid">
@@ -50,7 +82,11 @@
             <div class="skill-row">
               <div class="skill-meta">
                 <span class="skill-name mono-text">{{ skill.name }}</span>
-                <span class="skill-level mono-text">{{ skill.level }}</span>
+                <div class="skill-stars">
+                  @for (filled of getStars(skill.level); track $index) {
+                    <span class="star" [class.star-on]="filled">★</span>
+                  }
+                </div>
               </div>
               <div class="skill-track">
                 <div
@@ -67,7 +103,7 @@
       <!-- CTAs -->
       <div class="cta-group">
         <a (click)="navigateTo('contact')" class="btn btn-primary pixel-text">
-          ACEPTAR MISIÓN
+          ⚔ ACEPTAR MISIÓN
         </a>
         <a (click)="navigateTo('projects')" class="btn btn-ghost mono-text">
           → VER QUESTS

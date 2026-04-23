@@ -61,26 +61,39 @@ export class HeroComponent implements OnInit, OnDestroy {
   private sub!: Subscription;
 
   // ── State ────────────────────────────────────────────────────────────────
-  mousePos  = signal({ x: 0, y: 0 });
-  activeNode = signal<MapNode | null>(null);
+  mousePos      = signal({ x: 0, y: 0 });
+  activeNode    = signal<MapNode | null>(null);
   animatedSkills = signal(false);
+  typewriterText = signal('');
 
   // ── Data ─────────────────────────────────────────────────────────────────
   readonly SVG_W = 700;
   readonly SVG_H = 500;
 
   stats = [
-    { label: 'Nivel XP',   value: '3+ Años'   },
-    { label: 'Misiones',   value: '12 Proy'   },
-    { label: 'Clase',      value: 'Fullstack' },
+    { label: 'LVL_XP',  value: '3+'       },
+    { label: 'QUESTS',  value: '12+'      },
+    { label: 'CLASS',   value: 'FULL·STK' },
   ];
 
   skills: Skill[] = [
-    { name: 'Angular',    level: 90, color: 'var(--color-zone-contact)' },
-    { name: 'Node.js',    level: 82, color: 'var(--color-accent-teal)'  },
-    { name: 'TypeScript', level: 88, color: 'var(--color-primary)'      },
-    { name: 'SQL / DBs',  level: 75, color: 'var(--color-accent-amber)' },
+    { name: 'Angular',    level: 90, color: 'var(--color-primary)'       },
+    { name: 'TypeScript', level: 88, color: 'var(--color-primary)'       },
+    { name: 'Node.js',    level: 82, color: 'var(--color-accent-teal)'   },
+    { name: 'Flutter',    level: 78, color: 'var(--color-accent-amber)'  },
   ];
+
+  // ── Typewriter ────────────────────────────────────────────────────────────
+  private readonly roles = [
+    'Fullstack_Developer',
+    'Technical_Instructor',
+    'Angular_Specialist',
+    'Systems_Architect',
+  ];
+  private twRoleIdx  = 0;
+  private twCharIdx  = 0;
+  private twDeleting = false;
+  private twTimer: ReturnType<typeof setTimeout> | null = null;
 
   mapNodes: MapNode[] = [
     {
@@ -156,19 +169,46 @@ export class HeroComponent implements OnInit, OnDestroy {
       this.sub = fromEvent<MouseEvent>(window, 'mousemove').subscribe((e) =>
         this.mousePos.set({ x: e.clientX, y: e.clientY }),
       );
+      setTimeout(() => this.tickTypewriter(), 800);
     }
-    // Trigger skill bar animation after a short delay
     setTimeout(() => this.animatedSkills.set(true), 600);
   }
 
   ngOnDestroy(): void {
     this.sub?.unsubscribe();
+    if (this.twTimer) clearTimeout(this.twTimer);
   }
 
   // ── Helpers ───────────────────────────────────────────────────────────────
 
   navigateTo(id: string): void {
     this.nav.navigateTo(id as SectionId);
+  }
+
+  /** Returns array of 5 booleans for star rating (level 0–100 → 0–5 stars) */
+  getStars(level: number): boolean[] {
+    const filled = Math.round(level / 20);
+    return Array(5).fill(false).map((_, i) => i < filled);
+  }
+
+  /** Typewriter loop — cycles through role strings */
+  private tickTypewriter(): void {
+    const role = this.roles[this.twRoleIdx];
+    if (!this.twDeleting) {
+      this.typewriterText.set(role.slice(0, ++this.twCharIdx));
+      if (this.twCharIdx >= role.length) {
+        this.twDeleting = true;
+        this.twTimer = setTimeout(() => this.tickTypewriter(), 2200);
+        return;
+      }
+    } else {
+      this.typewriterText.set(role.slice(0, --this.twCharIdx));
+      if (this.twCharIdx === 0) {
+        this.twDeleting = false;
+        this.twRoleIdx  = (this.twRoleIdx + 1) % this.roles.length;
+      }
+    }
+    this.twTimer = setTimeout(() => this.tickTypewriter(), this.twDeleting ? 40 : 70);
   }
 
   toSvgX(pct: number): number { return toSVG(pct, this.SVG_W); }
