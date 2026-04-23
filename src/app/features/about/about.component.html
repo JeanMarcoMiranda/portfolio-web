@@ -1,1 +1,69 @@
-<p>about works!</p>
+<section class="about-section" id="about">
+  <div class="container">
+    <div class="section-header" data-aos="fade-down">
+      <span class="section-tag">02 — CHARACTER_SHEET</span>
+      <h2 class="section-title">Sobre el Desarrollador</h2>
+    </div>
+
+    <div class="character-grid">
+      <div class="profile-panel" data-aos="fade-right">
+        <div class="avatar-frame">
+          <div class="pixel-border-outer">
+            <img src="assets/img/jean-profile.webp" alt="Jean Miranda" class="profile-img" />
+          </div>
+          <div class="level-tag">LVL 03</div>
+        </div>
+
+        <div class="profile-details card">
+          <p class="mono-text t-accent">NAME: JEAN_MARCO_MIRANDA</p>
+          <p class="mono-text">CLASS: FULLSTACK_MOBILE_DEV</p>
+          <p class="mono-text">LOC: AREQUIPA_PE</p>
+          <hr class="card-divider" />
+          <p class="bio-text">
+            Apasionado por crear interfaces de alta fidelidad y arquitecturas escalables. Como
+            instructor en TECSUP, disfruto simplificar conceptos complejos para la próxima
+            generación de desarrolladores.
+          </p>
+        </div>
+      </div>
+
+      <div class="stats-panel" data-aos="fade-left">
+        <h3 class="panel-subtitle pixel-text">TECH_STATS</h3>
+
+        <div class="skill-group">
+          <span class="group-label">FRONTEND_SKILLS</span>
+          @for (skill of frontendSkills; track skill.name) {
+            <div class="stat-row">
+              <span class="stat-label">{{ skill.name }}</span>
+              <div class="stat-track">
+                <div
+                  class="stat-fill"
+                  [style.width.%]="skill.level"
+                  [style.background]="skill.color"
+                ></div>
+              </div>
+              <span class="stat-val">{{ skill.level }}</span>
+            </div>
+          }
+        </div>
+
+        <div class="skill-group">
+          <span class="group-label">MOBILE_DEVELOPMENT</span>
+          @for (skill of mobileSkills; track skill.name) {
+            <div class="stat-row">
+              <span class="stat-label">{{ skill.name }}</span>
+              <div class="stat-track">
+                <div
+                  class="stat-fill"
+                  [style.width.%]="skill.level"
+                  [style.background]="skill.color"
+                ></div>
+              </div>
+              <span class="stat-val">{{ skill.level }}</span>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

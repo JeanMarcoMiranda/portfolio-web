@@ -1,23 +1,53 @@
-<nav [class.crolled]="isScrolled()" [class.menu-active]="isMenuOpen()">
+<nav
+  [class.scrolled]="isScrolled()"
+  [class.menu-active]="isMenuOpen()"
+>
   <div class="nav-container">
-    <div class="logo">
+
+    <!-- Logo -->
+    <div class="logo" (click)="scrollTo('home')" role="button" aria-label="Ir al inicio">
       <span class="pixel-text">JEAN</span>
       <span class="cursor">_</span>
     </div>
 
-    <ul class="nav-links">
-      <li><a href="#home">INICIO</a></li>
-      <li><a href="#projects">MISIONES</a></li>
-      <li><a href="#about">STATS</a></li>
-      <li><a href="#contact">CONTACTO</a></li>
+    <!-- Desktop Nav Links -->
+    <ul class="nav-links" [class.open]="isMenuOpen()">
+      @for (link of navLinks; track link.id) {
+        <li>
+          <a
+            [id]="'nav-' + link.id"
+            [class.active]="activeSection() === link.id"
+            (click)="scrollTo(link.id)"
+            role="button"
+          >
+            <span class="link-prefix">></span>
+            {{ link.label }}
+          </a>
+        </li>
+      }
     </ul>
 
-    <button class="menu-toggle" (click)="toggleMenu()">
-      <div class="bar"></div>
+    <!-- Hamburger Button (mobile) -->
+    <button
+      id="nav-menu-toggle"
+      class="menu-toggle"
+      [class.open]="isMenuOpen()"
+      (click)="toggleMenu()"
+      aria-label="Abrir menú"
+    >
+      <span class="bar bar-1"></span>
+      <span class="bar bar-2"></span>
+      <span class="bar bar-3"></span>
     </button>
+
   </div>
 
-  <div class="scroll-progress-container">
-    <div class="progress-bar"></div>
+  <!-- Scroll Progress Bar -->
+  <div class="scroll-progress-container" aria-hidden="true">
+    <div
+      class="progress-bar"
+      [style.width.%]="scrollProgress()"
+    ></div>
   </div>
+
 </nav>

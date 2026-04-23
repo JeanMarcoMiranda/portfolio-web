@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
+import { ScrollService, SectionId } from '../../services/scroll.service';
 
 @Component({
   selector: 'app-navbar',
@@ -9,16 +10,41 @@ import { Component, HostListener, signal } from '@angular/core';
   styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent {
+  private readonly scrollService = inject(ScrollService);
+
+  // Exposed from service
+  activeSection = this.scrollService.activeSection;
+  scrollProgress = this.scrollService.scrollProgress;
+
+  // Local state
   isScrolled = signal(false);
   isMenuOpen = signal(false);
 
-  @HostListener('window:scroll', [])
-  onWindowScroll() {
-    // Cambia el estado si el scroll es mayor a 50px
-    this.isScrolled.set(window.scrollY > 50);
+  readonly navLinks: { id: SectionId; label: string }[] = [
+    { id: 'home',     label: 'INICIO'   },
+    { id: 'about',    label: 'STATS'    },
+    { id: 'projects', label: 'MISIONES' },
+    { id: 'contact',  label: 'CONTACTO' },
+  ];
+
+  constructor() {
+    // Listen to scroll for navbar background blur effect
+    if (typeof window !== 'undefined') {
+      window.addEventListener(
+        'scroll',
+        () => this.isScrolled.set(window.scrollY > 50),
+        { passive: true },
+      );
+    }
   }
 
-  toggleMenu() {
+  scrollTo(id: SectionId): void {
+    this.scrollService.scrollTo(id);
+    // Close mobile menu after navigation
+    this.isMenuOpen.set(false);
+  }
+
+  toggleMenu(): void {
     this.isMenuOpen.update((v) => !v);
   }
 }

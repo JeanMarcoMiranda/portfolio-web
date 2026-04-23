@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { isPlatformBrowser, CommonModule } from '@angular/common';
 import { fromEvent, Subscription } from 'rxjs';
+import { ScrollService } from '../../core/services/scroll.service';
 
 // ── Interfaces ──────────────────────────────────────────────────────────────
 
@@ -54,7 +55,8 @@ function pixelPath(
 })
 export class HeroComponent implements OnInit, OnDestroy {
 
-  private readonly platformId = inject(PLATFORM_ID);
+  private readonly platformId  = inject(PLATFORM_ID);
+  private readonly scrollService = inject(ScrollService);
 
   private sub!: Subscription;
 
@@ -166,7 +168,7 @@ export class HeroComponent implements OnInit, OnDestroy {
   // ── Helpers ───────────────────────────────────────────────────────────────
 
   navigateTo(id: string): void {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    this.scrollService.scrollTo(id);
   }
 
   toSvgX(pct: number): number { return toSVG(pct, this.SVG_W); }

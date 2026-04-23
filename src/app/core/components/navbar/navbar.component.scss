@@ -1,3 +1,7 @@
+// ── Breakpoints ────────────────────────────────────────────────────────────
+$bp-mobile: 768px;
+
+// ── Nav root ──────────────────────────────────────────────────────────────
 nav {
   position: fixed;
   top: 0;
@@ -7,68 +11,229 @@ nav {
   transition: var(--transition);
   background: transparent;
 
+  // Activated when user scrolls > 50px
   &.scrolled {
     padding: 1rem 0;
-    background: rgba(11, 12, 21, 0.8);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--color-primary-glow);
-  }
-
-  .nav-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 2rem;
+    background: rgba(11, 12, 21, 0.85);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(124, 106, 247, 0.25);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
   }
 }
 
-.pixel-text {
-  font-family: var(--font-pixel);
-  font-size: 1.2rem;
-  color: var(--color-primary);
-  letter-spacing: -1px;
+// ── Container ─────────────────────────────────────────────────────────────
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
 }
 
+// ── Logo ──────────────────────────────────────────────────────────────────
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  cursor: pointer;
+  user-select: none;
+
+  .pixel-text {
+    font-family: var(--font-pixel);
+    font-size: 1.2rem;
+    color: var(--color-primary);
+    letter-spacing: -1px;
+    transition: var(--transition);
+  }
+
+  .cursor {
+    font-family: var(--font-pixel);
+    font-size: 1.2rem;
+    color: var(--color-accent-teal);
+    animation: blink 1s step-end infinite;
+  }
+
+  &:hover .pixel-text {
+    color: var(--color-accent-teal);
+    text-shadow: 0 0 12px var(--color-accent-teal);
+  }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+// ── Nav links ──────────────────────────────────────────────────────────────
 .nav-links {
   display: flex;
   gap: 2.5rem;
   list-style: none;
+  margin: 0;
+  padding: 0;
 
   a {
     font-family: var(--font-mono);
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     color: var(--color-text-2);
     text-decoration: none;
-    transition: var(--transition);
+    cursor: pointer;
     position: relative;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.25s ease;
+    letter-spacing: 0.05em;
+
+    .link-prefix {
+      color: var(--color-primary);
+      opacity: 0;
+      transform: translateX(-6px);
+      transition:
+        opacity 0.2s ease,
+        transform 0.2s ease;
+      font-size: 0.75rem;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--color-accent-teal);
+      transition: width 0.25s ease;
+    }
 
     &:hover,
     &.active {
-      color: var(--color-accent-teal);
+      color: var(--color-text-1);
+
+      .link-prefix {
+        opacity: 1;
+        transform: translateX(0);
+      }
 
       &::after {
-        content: '>';
-        position: absolute;
-        left: -15px;
-        color: var(--color-primary);
+        width: 100%;
       }
+    }
+
+    &.active {
+      color: var(--color-accent-teal);
+
+      .link-prefix {
+        color: var(--color-accent-teal);
+      }
+
+      &::after {
+        background: var(--color-accent-teal);
+        box-shadow: 0 0 8px var(--color-accent-teal);
+      }
+    }
+  }
+
+  // ── Mobile overlay ─────────────────────────────────────────────────────
+  @media (max-width: $bp-mobile) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2.5rem;
+    background: rgba(11, 12, 21, 0.97);
+    backdrop-filter: blur(20px);
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition:
+      opacity 0.3s ease,
+      transform 0.3s ease;
+
+    &.open {
+      pointer-events: all;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    a {
+      font-size: 1.1rem;
+      letter-spacing: 0.1em;
     }
   }
 }
 
-/* Scroll Progress Bar */
+// ── Hamburger button ───────────────────────────────────────────────────────
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 1100; // above the mobile overlay
+
+  .bar {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--color-primary);
+    border-radius: 2px;
+    transition:
+      transform 0.3s ease,
+      opacity 0.3s ease,
+      width 0.3s ease;
+    transform-origin: center;
+  }
+
+  // Animated → X when open
+  &.open {
+    .bar-1 {
+      transform: translateY(7px) rotate(45deg);
+    }
+    .bar-2 {
+      opacity: 0;
+      width: 0;
+    }
+    .bar-3 {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+  }
+
+  @media (max-width: $bp-mobile) {
+    display: flex;
+  }
+}
+
+// ── Scroll Progress Bar ────────────────────────────────────────────────────
 .scroll-progress-container {
   position: absolute;
   bottom: 0;
+  left: 0;
   width: 100%;
   height: 2px;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.04);
 
   .progress-bar {
     height: 100%;
-    background: linear-gradient(90deg, var(--color-primary), var(--color-accent-teal));
-    width: 0%; // Esto se controlará con una directiva o scroll event
+    background: linear-gradient(
+      90deg,
+      var(--color-primary),
+      var(--color-accent-teal)
+    );
+    box-shadow: 0 0 8px var(--color-primary-glow);
+    transition: width 0.1s linear;
+    will-change: width;
   }
 }
