@@ -1,0 +1,103 @@
+<section class="projects-section" id="projects" [class.is-visible]="sectionVisible()">
+  <div class="container">
+
+    <!-- ── Section Header ──────────────────────────────────────── -->
+    <div class="section-header projects-header">
+      <span class="section-tag">03 — QUEST_LOG</span>
+      <h2 class="section-title">
+        Misiones <span class="t-accent">Completadas</span>
+      </h2>
+      <p class="section-subtitle">Proyectos destacados de desarrollo Web & Mobile</p>
+    </div>
+
+    <!-- ── HUD Filters ─────────────────────────────────────────── -->
+    <div class="filters-hud">
+      <span class="hud-label pixel-text">FILTER:</span>
+      <div class="filters-group">
+        @for (f of filters; track f.id) {
+          <button
+            class="filter-btn mono-text"
+            [class.active]="activeFilter() === f.id"
+            (click)="setFilter(f.id)"
+          >
+            [{{ f.label }}]
+          </button>
+        }
+      </div>
+    </div>
+
+    <!-- ── Projects Grid ───────────────────────────────────────── -->
+    <div class="projects-grid">
+      @for (project of filteredProjects(); track project.id; let i = $index) {
+        <article class="quest-card card" [style.--stagger]="i">
+          
+          <!-- Image Frame -->
+          <div class="quest-image-frame">
+            <!-- Fallback colored block since images aren't there yet -->
+            <div class="img-placeholder">
+              <span class="pixel-text">{{ project.type }}</span>
+            </div>
+            <!-- <img [src]="project.image" [alt]="project.title" class="quest-img" /> -->
+            <div class="scanlines-overlay"></div>
+          </div>
+
+          <!-- Card Content -->
+          <div class="quest-content">
+            
+            <div class="quest-header">
+              <h3 class="quest-title">{{ project.title }}</h3>
+              
+              <!-- Difficulty Rating -->
+              <div class="difficulty-rating">
+                @for (star of getStars(project.difficulty); track $index) {
+                  <span class="star" [class.active]="star === 1">★</span>
+                }
+              </div>
+            </div>
+
+            <p class="quest-desc bio-text">{{ project.description }}</p>
+
+            <!-- Tech Stack -->
+            <div class="quest-techs">
+              @for (tech of project.techs; track tech.name) {
+                <span class="tech-badge mono-text">
+                  <ng-icon [name]="tech.icon" class="badge-icon"></ng-icon>
+                  {{ tech.name }}
+                </span>
+              }
+            </div>
+
+            <hr class="card-divider" />
+
+            <!-- CTAs -->
+            <div class="quest-actions">
+              @if (project.demoUrl) {
+                <a [href]="project.demoUrl" target="_blank" class="action-btn primary mono-text">
+                  <ng-icon name="lucideExternalLink" class="action-icon"></ng-icon>
+                  VER_DEMO
+                </a>
+              }
+              @if (project.repoUrl) {
+                <a [href]="project.repoUrl" target="_blank" class="action-btn ghost mono-text">
+                  <ng-icon name="lucideGithub" class="action-icon"></ng-icon>
+                  CÓDIGO
+                </a>
+              }
+              @if (!project.demoUrl && !project.repoUrl) {
+                <span class="status-private mono-text">[ CONFIDENCIAL ]</span>
+              }
+            </div>
+
+          </div>
+        </article>
+      }
+
+      @if (filteredProjects().length === 0) {
+        <div class="empty-state card">
+          <span class="pixel-text t-accent">NO_QUESTS_FOUND</span>
+        </div>
+      }
+    </div>
+
+  </div>
+</section>
