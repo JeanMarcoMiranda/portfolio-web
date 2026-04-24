@@ -40,7 +40,7 @@
           </div>
           <div class="id-row">
             <span class="id-key mono-text">LOC</span>
-            <span class="id-val mono-text">AREQUIPA_PE 🌎</span>
+            <span class="id-val mono-text">AREQUIPA_PE <ng-icon name="lucideGlobe" class="icon-baseline"></ng-icon></span>
           </div>
           <div class="id-row">
             <span class="id-key mono-text">STATUS</span>
@@ -54,7 +54,7 @@
 
           <!-- Download CV CTA -->
           <a href="#" class="cv-btn mono-text" download>
-            <span class="cv-icon">📄</span>
+            <ng-icon name="lucideDownload" class="cv-icon"></ng-icon>
             DESCARGAR_CV
           </a>
         </div>
@@ -73,7 +73,7 @@
           <span class="panel-subtitle pixel-text">EDU_LOG</span>
           @for (item of education; track item.institution) {
             <div class="edu-entry card">
-              <span class="edu-icon">{{ item.icon }}</span>
+              <ng-icon [name]="item.icon" class="edu-icon"></ng-icon>
               <div class="edu-info">
                 <span class="edu-institution mono-text">{{ item.institution }}</span>
                 <span class="edu-degree bio-text">{{ item.degree }}</span>
@@ -119,8 +119,11 @@
 
               <!-- Tech chips -->
               <div class="tech-tags">
-                @for (tech of cat.techs; track tech) {
-                  <span class="tech-tag mono-text">{{ tech }}</span>
+                @for (tech of cat.techs; track tech.name) {
+                  <span class="tech-tag mono-text">
+                    <ng-icon [name]="tech.icon" class="tech-icon"></ng-icon>
+                    {{ tech.name }}
+                  </span>
                 }
               </div>
             </div>
@@ -131,7 +134,7 @@
         <div class="xp-counters" [class.animate-in]="sectionVisible()">
           @for (stat of xpStats; track stat.label; let i = $index) {
             <div class="xp-card card" [style.--stagger]="i">
-              <span class="xp-icon">{{ stat.icon }}</span>
+              <ng-icon [name]="stat.icon" class="xp-icon"></ng-icon>
               <span class="xp-value pixel-text">{{ stat.value }}</span>
               <span class="xp-label mono-text">{{ stat.label }}</span>
             </div>

@@ -114,9 +114,17 @@
   }
 
   .id-val {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
     font-size: 0.68rem;
     color: var(--color-text-2);
     letter-spacing: 0.04em;
+
+    .icon-baseline {
+      font-size: 0.85rem;
+      color: var(--color-accent-teal);
+    }
   }
 }
 
@@ -162,7 +170,7 @@
   transition: background var(--transition), border-color var(--transition), box-shadow var(--transition);
   margin-top: 0.25rem;
 
-  .cv-icon { font-size: 0.85rem; }
+  .cv-icon { font-size: 0.95rem; }
 
   &:hover {
     background: rgba(124, 106, 247, 0.08);
@@ -349,6 +357,9 @@
 
 // CSS custom props --cat-color and --cat-glow are set on .tech-category via [style]
 .tech-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
   font-size: 0.68rem;
   color: var(--color-text-2);
   padding: 5px 14px;
@@ -362,6 +373,12 @@
     background var(--transition),
     box-shadow var(--transition);
 
+  .tech-icon {
+    font-size: 1.1rem;
+    color: var(--color-text-3);
+    transition: color var(--transition);
+  }
+
   .tech-category:hover & {
     border-color: rgba(255, 255, 255, 0.1);
   }
@@ -371,6 +388,10 @@
     border-color: var(--cat-color);
     background: var(--cat-glow);
     box-shadow: 0 0 10px var(--cat-glow);
+
+    .tech-icon {
+      color: var(--cat-color);
+    }
   }
 }
 
