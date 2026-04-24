@@ -6,6 +6,7 @@ import { NavbarComponent } from './core/components/navbar/navbar.component';
 import { PageTransitionComponent } from './core/components/page-transition/page-transition.component';
 import { NavigationService } from './core/services/navigation.service';
 import { ProjectsComponent } from './features/projects/projects.component';
+import { ContactComponent } from './features/contact/contact.component';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +16,7 @@ import { ProjectsComponent } from './features/projects/projects.component';
     HeroComponent,
     AboutComponent,
     ProjectsComponent,
+    ContactComponent,
     NavbarComponent,
     PageTransitionComponent,
   ],

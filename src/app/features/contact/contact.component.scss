@@ -1,0 +1,339 @@
+@use "sass:color";
+
+.contact-section {
+  min-height: 100%;
+  padding: 80px 0 80px;
+  background-color: var(--color-bg-2); // Contrasts with Projects (bg)
+  // Use Contact Zone Color (Pink/Coral)
+  --zone-accent: var(--color-zone-contact, #E05C7A);
+}
+
+// ── Header ────────────────────────────────────────────────────────
+
+.contact-header {
+  margin-bottom: 3rem;
+
+  .section-tag {
+    color: var(--zone-accent);
+    background: rgba(224, 92, 122, 0.1);
+    border: 1px solid rgba(224, 92, 122, 0.2);
+  }
+  .t-accent {
+    color: var(--zone-accent);
+  }
+  .section-subtitle {
+    font-family: var(--font-vt323);
+    font-size: 1.15rem;
+    color: var(--color-text-3);
+    margin-top: 0.5rem;
+    letter-spacing: 0.05em;
+  }
+}
+
+// ── Layout Grid ───────────────────────────────────────────────────
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+// ── Left Panel (Comm Link Info) ───────────────────────────────────
+
+.comm-panel {
+  display: flex;
+  flex-direction: column;
+  
+  // Stagger entrance animation
+  opacity: 0;
+  transform: translateX(-20px);
+
+  .contact-section.is-visible & {
+    animation: slide-in-left 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+}
+
+@keyframes slide-in-left {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.info-card {
+  border-color: rgba(224, 92, 122, 0.15);
+  
+  &:hover {
+    border-color: rgba(224, 92, 122, 0.3);
+    box-shadow: 0 0 20px rgba(224, 92, 122, 0.05);
+  }
+}
+
+.comm-lore {
+  margin: 0;
+  color: var(--color-text-2);
+}
+
+.info-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+
+  .info-key {
+    font-size: 0.65rem;
+    color: var(--color-text-3);
+    letter-spacing: 0.05em;
+  }
+
+  .info-val, .info-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.75rem;
+    color: var(--color-text-1);
+    text-decoration: none;
+    transition: color var(--transition);
+
+    .val-icon {
+      color: var(--zone-accent);
+      font-size: 0.9rem;
+    }
+  }
+
+  .info-link:hover {
+    color: var(--zone-accent);
+  }
+}
+
+// Status Online Pulse (override from about.component)
+.status-online {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--zone-accent);
+
+  .status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--zone-accent);
+    flex-shrink: 0;
+    animation: breathe-contact 2s ease-in-out infinite;
+  }
+
+  .mono-text {
+    font-size: 0.68rem;
+    letter-spacing: 0.04em;
+  }
+}
+
+@keyframes breathe-contact {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(224, 92, 122, 0.6); }
+  50%       { opacity: 0.6; box-shadow: 0 0 0 5px rgba(224, 92, 122, 0); }
+}
+
+.social-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.8rem;
+}
+
+.social-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.6rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--color-text-2);
+  text-decoration: none;
+  transition: all var(--transition);
+
+  .social-icon {
+    font-size: 1.1rem;
+  }
+
+  .mono-text {
+    font-size: 0.65rem;
+    letter-spacing: 0.05em;
+  }
+
+  &:hover {
+    background: rgba(224, 92, 122, 0.1);
+    border-color: var(--zone-accent);
+    color: var(--zone-accent);
+    box-shadow: 0 0 10px rgba(224, 92, 122, 0.15);
+  }
+}
+
+// ── Right Panel (Form Panel) ──────────────────────────────────────
+
+.form-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  border-top: 3px solid var(--zone-accent);
+
+  // Entrance animation
+  opacity: 0;
+  transform: translateY(20px);
+
+  .contact-section.is-visible & {
+    animation: slide-in-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards;
+  }
+}
+
+@keyframes slide-in-up {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  label {
+    font-size: 0.65rem;
+    color: var(--color-text-3);
+    letter-spacing: 0.05em;
+  }
+}
+
+// Terminal-style inputs
+.terminal-input {
+  width: 100%;
+  background: rgba(11, 12, 21, 0.5); // darker inner background
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.8rem 1rem;
+  color: var(--color-text-1);
+  font-size: 0.85rem;
+  transition: all var(--transition);
+  outline: none;
+
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.15);
+    font-family: var(--font-body);
+  }
+
+  &:focus {
+    border-color: var(--zone-accent);
+    box-shadow: 0 0 0 1px var(--zone-accent), 0 0 10px rgba(224, 92, 122, 0.15);
+  }
+
+  &.textarea {
+    resize: vertical;
+    min-height: 120px;
+    font-family: var(--font-body);
+    line-height: 1.5;
+  }
+
+  &.ng-invalid.ng-touched {
+    border-color: rgba(255, 0, 0, 0.4);
+    box-shadow: 0 0 8px rgba(255, 0, 0, 0.1);
+  }
+}
+
+// ── Form Actions ──────────────────────────────────────────────────
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0.5rem;
+}
+
+// Clip-path pixel art button
+.submit-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--zone-accent);
+  color: #fff;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  font-weight: 600;
+  clip-path: polygon(
+    8px 0,
+    100% 0,
+    100% calc(100% - 8px),
+    calc(100% - 8px) 100%,
+    0 100%,
+    0 8px
+  );
+  transition: all var(--transition);
+  position: relative;
+
+  .btn-icon {
+    font-size: 1rem;
+  }
+
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(224, 92, 122, 0.3);
+    background: color.adjust(#E05C7A, $lightness: 5%);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  &.loading {
+    animation: pulse-bg 1.5s infinite;
+  }
+}
+
+@keyframes pulse-bg {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 0.9; }
+}
+
+.success-message {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: rgba(46, 207, 168, 0.1);
+  border: 1px solid rgba(46, 207, 168, 0.3);
+  text-align: center;
+  
+  .pixel-text {
+    color: var(--color-accent-teal);
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+  }
+}
+
+// ── Responsive ────────────────────────────────────────────────────
+
+@media (max-width: 900px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .comm-panel {
+    order: 2; // Form on top for mobile? Or keep order.
+    // Usually form is on top, but RPG logic might keep lore on top.
+    // Let's keep the DOM order (Lore on top).
+  }
+}

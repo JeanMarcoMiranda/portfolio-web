@@ -1,0 +1,149 @@
+<section class="contact-section" id="contact" [class.is-visible]="sectionVisible()">
+  <div class="container">
+
+    <!-- ── Section Header ──────────────────────────────────────── -->
+    <div class="section-header contact-header">
+      <span class="section-tag">04 — COMM_HUB</span>
+      <h2 class="section-title">
+        Party <span class="t-accent">Invite</span>
+      </h2>
+      <p class="section-subtitle">Conectemos para desarrollar tu próxima gran idea</p>
+    </div>
+
+    <!-- ── Main Layout ─────────────────────────────────────────── -->
+    <div class="contact-grid">
+
+      <!-- ═══════════════════════════════════════════════════════ -->
+      <!--  LEFT — Comm Link Info                                  -->
+      <!-- ═══════════════════════════════════════════════════════ -->
+      <aside class="comm-panel">
+        
+        <div class="info-card card">
+          <p class="comm-lore bio-text">
+            ¿Tienes un proyecto que tengas pensado? Me encantaría escucharlo y ayudarte a hacerlo realidad.
+            Respondo todos los mensajes en menos de 24 horas ⚡.
+          </p>
+
+          <hr class="card-divider" />
+
+          <!-- Status & Location -->
+          <div class="info-row">
+            <span class="info-key mono-text">STATUS</span>
+            <span class="status-online">
+              <span class="status-dot"></span>
+              <span class="mono-text">ACEPTANDO_PROYECTOS</span>
+            </span>
+          </div>
+          <div class="info-row">
+            <span class="info-key mono-text">LOC</span>
+            <span class="info-val mono-text">
+              <ng-icon name="lucideMapPin" class="val-icon"></ng-icon>
+              AREQUIPA_PE (REMOTO)
+            </span>
+          </div>
+          <div class="info-row">
+            <span class="info-key mono-text">COMMS</span>
+            <a href="mailto:elecord2014@gmail.com" class="info-link mono-text">
+              <ng-icon name="lucideMail" class="val-icon"></ng-icon>
+              elecord2014&#64;gmail.com
+            </a>
+          </div>
+
+          <hr class="card-divider" />
+
+          <!-- Social Links -->
+          <span class="panel-subtitle pixel-text">SOCIAL_LINKS</span>
+          <div class="social-grid">
+            <a href="https://github.com/JeanMarcoMiranda" target="_blank" class="social-btn">
+              <ng-icon name="lucideGithub" class="social-icon"></ng-icon>
+              <span class="mono-text">GITHUB</span>
+            </a>
+            <a href="#" target="_blank" class="social-btn">
+              <ng-icon name="lucideLinkedin" class="social-icon"></ng-icon>
+              <span class="mono-text">LINKEDIN</span>
+            </a>
+            <a href="#" target="_blank" class="social-btn">
+              <ng-icon name="lucideTwitter" class="social-icon"></ng-icon>
+              <span class="mono-text">TWITTER</span>
+            </a>
+          </div>
+
+        </div>
+
+      </aside>
+
+      <!-- ═══════════════════════════════════════════════════════ -->
+      <!--  RIGHT — Form Panel                                     -->
+      <!-- ═══════════════════════════════════════════════════════ -->
+      <div class="form-panel card">
+        
+        <h3 class="panel-subtitle pixel-text">COMPOSE_MISSIVE</h3>
+
+        <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="contact-form">
+          
+          <div class="form-group">
+            <label for="name" class="mono-text">PLAYER_NAME</label>
+            <input 
+              type="text" 
+              id="name" 
+              formControlName="name" 
+              class="terminal-input mono-text" 
+              placeholder="Ingresa tu nombre..."
+              autocomplete="name"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="email" class="mono-text">COMMS_LINK (EMAIL)</label>
+            <input 
+              type="email" 
+              id="email" 
+              formControlName="email" 
+              class="terminal-input mono-text" 
+              placeholder="correo@ejemplo.com"
+              autocomplete="email"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="message" class="mono-text">MISSIVE_BODY</label>
+            <textarea 
+              id="message" 
+              formControlName="message" 
+              class="terminal-input mono-text textarea" 
+              placeholder="Háblame sobre tu proyecto..."
+              rows="5"
+            ></textarea>
+          </div>
+
+          <!-- Form Actions -->
+          <div class="form-actions">
+            <button 
+              type="submit" 
+              class="submit-btn mono-text"
+              [disabled]="isSubmitting()"
+              [class.loading]="isSubmitting()"
+            >
+              @if (isSubmitting()) {
+                ENVIANDO...
+              } @else {
+                <ng-icon name="lucideSend" class="btn-icon"></ng-icon>
+                ENVIAR_MENSAJE
+              }
+            </button>
+          </div>
+
+          <!-- Success Message -->
+          @if (submitSuccess()) {
+            <div class="success-message">
+              <span class="pixel-text">✔ MISSIVE_DELIVERED_SUCCESSFULLY</span>
+            </div>
+          }
+
+        </form>
+
+      </div>
+
+    </div>
+  </div>
+</section>
