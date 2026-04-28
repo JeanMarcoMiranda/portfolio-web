@@ -1,0 +1,217 @@
+@use "sass:color";
+
+.chronicles-section {
+  min-height: 100%;
+  padding: 80px 0 80px;
+  background-color: var(--color-bg);
+  --zone-accent: var(--color-zone-chronicles, #38bdf8);
+}
+
+.chronicles-header {
+  margin-bottom: 3rem;
+
+  .section-tag {
+    color: var(--zone-accent);
+    background: rgba(56, 189, 248, 0.1);
+    border: 1px solid rgba(56, 189, 248, 0.2);
+  }
+  .t-accent {
+    color: var(--zone-accent);
+  }
+  .section-subtitle {
+    font-family: var(--font-vt323);
+    font-size: 1.15rem;
+    color: var(--color-text-3);
+    margin-top: 0.5rem;
+    letter-spacing: 0.05em;
+  }
+}
+
+.chronicles-layout {
+  opacity: 0;
+  transform: translateY(20px);
+
+  .chronicles-section.is-visible & {
+    animation: slide-in-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+}
+
+@keyframes slide-in-up {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// ── Logs Grid ──────────────────────────────────────────────────
+
+.logs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.loading-logs {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 3rem;
+  color: var(--zone-accent);
+  font-size: 0.8rem;
+  animation: blink 1.5s infinite;
+}
+
+.log-card {
+  cursor: pointer;
+  transition: all var(--transition);
+  border-color: rgba(56, 189, 248, 0.15);
+  display: flex;
+  flex-direction: column;
+
+  &:hover {
+    transform: translateY(-4px);
+    border-color: var(--zone-accent);
+    box-shadow: 0 10px 20px rgba(56, 189, 248, 0.1);
+    background: rgba(56, 189, 248, 0.03);
+  }
+}
+
+.log-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+
+  .log-date {
+    font-size: 0.7rem;
+    color: var(--color-text-3);
+  }
+
+  .log-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.65rem;
+    color: var(--zone-accent);
+    background: rgba(56, 189, 248, 0.1);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    border: 1px solid rgba(56, 189, 248, 0.2);
+  }
+}
+
+.log-title {
+  font-size: 1.25rem;
+  color: var(--color-text-1);
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.log-excerpt {
+  flex-grow: 1;
+  margin-bottom: 1.5rem;
+  font-size: 0.85rem;
+}
+
+.log-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+
+  .tag {
+    font-size: 0.65rem;
+    color: var(--color-text-2);
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.2rem 0.4rem;
+    border-radius: 2px;
+  }
+}
+
+// ── Reader Panel ───────────────────────────────────────────────
+
+.reader-panel {
+  border-top: 3px solid var(--zone-accent);
+  padding: 2rem;
+  animation: fade-in 0.3s ease-out forwards;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  color: var(--color-text-3);
+  font-size: 0.75rem;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 2rem;
+  transition: color 0.2s;
+
+  &:hover {
+    color: var(--zone-accent);
+  }
+}
+
+.reader-header {
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+  .reader-title {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    color: var(--color-text-1);
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+  }
+
+  .chapter-info {
+    font-size: 0.8rem;
+    color: var(--zone-accent);
+    
+    .chapter-name {
+      color: var(--color-text-2);
+    }
+  }
+}
+
+.reader-content {
+  margin-bottom: 3rem;
+}
+
+// ── Series Navigation ──────────────────────────────────────────
+
+.chapter-nav {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 1.5rem;
+}
+
+.nav-btn {
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid var(--zone-accent);
+  color: var(--color-text-1);
+  padding: 0.8rem 1.2rem;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+
+  &:hover:not(:disabled) {
+    background: var(--zone-accent);
+    color: #fff;
+    transform: translateY(-2px);
+  }
+
+  &:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    border-color: rgba(255, 255, 255, 0.2);
+    background: transparent;
+  }
+}

@@ -20,10 +20,11 @@ export class NavbarComponent {
   isMenuOpen = signal(false);
 
   readonly navLinks: { id: SectionId; label: string }[] = [
-    { id: 'home',     label: 'INICIO'   },
-    { id: 'about',    label: 'STATS'    },
-    { id: 'projects', label: 'MISIONES' },
-    { id: 'contact',  label: 'CONTACTO' },
+    { id: 'home',       label: 'INICIO'     },
+    { id: 'about',      label: 'STATS'      },
+    { id: 'projects',   label: 'MISIONES'   },
+    { id: 'chronicles', label: 'DATA_LOGS'  },
+    { id: 'contact',    label: 'CONTACTO'   },
   ];
 
   navigateTo(id: SectionId): void {

@@ -5,7 +5,7 @@ import { isPlatformBrowser } from '@angular/common';
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
-export type SectionId = 'home' | 'about' | 'projects' | 'contact';
+export type SectionId = 'home' | 'about' | 'projects' | 'contact' | 'chronicles';
 
 export interface ZoneData {
   id: SectionId;
@@ -15,10 +15,11 @@ export interface ZoneData {
 }
 
 export const ZONE_MAP: Record<SectionId, ZoneData> = {
-  home:     { id: 'home',     zoneName: 'BASE__CAMP',       desc: 'Punto de spawn del jugador',  color: 'var(--color-primary)'       },
-  about:    { id: 'about',    zoneName: 'CHARACTER_SHEET',  desc: 'Estadísticas del personaje',  color: 'var(--color-accent-teal)'   },
-  projects: { id: 'projects', zoneName: 'QUEST__LOG',       desc: 'Misiones completadas',        color: 'var(--color-accent-amber)'  },
-  contact:  { id: 'contact',  zoneName: 'COMM__HUB',        desc: 'Iniciar comunicación',        color: 'var(--color-zone-contact)'  },
+  home:       { id: 'home',       zoneName: 'BASE__CAMP',       desc: 'Punto de spawn del jugador',  color: 'var(--color-primary)'       },
+  about:      { id: 'about',      zoneName: 'CHARACTER_SHEET',  desc: 'Estadísticas del personaje',  color: 'var(--color-accent-teal)'   },
+  projects:   { id: 'projects',   zoneName: 'QUEST__LOG',       desc: 'Misiones completadas',        color: 'var(--color-accent-amber)'  },
+  chronicles: { id: 'chronicles', zoneName: 'DATA__LOGS',       desc: 'Registros y entradas',        color: 'var(--color-zone-chronicles)'},
+  contact:    { id: 'contact',    zoneName: 'COMM__HUB',        desc: 'Iniciar comunicación',        color: 'var(--color-zone-contact)'  },
 };
 
 // ── Service ───────────────────────────────────────────────────────────────────
@@ -27,7 +28,7 @@ export const ZONE_MAP: Record<SectionId, ZoneData> = {
 export class NavigationService implements OnDestroy {
   private readonly platformId = inject(PLATFORM_ID);
 
-  readonly sections: SectionId[] = ['home', 'about', 'projects', 'contact'];
+  readonly sections: SectionId[] = ['home', 'about', 'projects', 'chronicles', 'contact'];
 
   // ── Signals ───────────────────────────────────────────────────────────────
   currentSection  = signal<SectionId>('home');

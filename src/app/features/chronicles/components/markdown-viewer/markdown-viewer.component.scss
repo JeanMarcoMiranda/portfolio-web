@@ -1,0 +1,32 @@
+.markdown-container {
+  min-height: 200px;
+  position: relative;
+}
+
+.loading-state, .error-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  border: 1px dashed rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+
+  .pixel-text {
+    font-size: 0.8rem;
+    animation: blink 1.5s infinite;
+  }
+}
+
+.error-state {
+  border-color: rgba(255, 0, 0, 0.3);
+  .pixel-text {
+    color: #ff4444;
+    animation: none;
+  }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}

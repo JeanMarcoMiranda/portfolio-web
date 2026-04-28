@@ -1,0 +1,88 @@
+<section class="chronicles-section section-scroll" id="chronicles" [class.is-visible]="sectionVisible()">
+  <div class="container">
+
+    <!-- ── Header ────────────────────────────────────────────── -->
+    <div class="section-header chronicles-header">
+      <span class="section-tag">05 — ARCHIVES</span>
+      <h2 class="section-title">
+        Data <span class="t-accent">Logs</span>
+      </h2>
+      <p class="section-subtitle">Registros y Crónicas del Sistema</p>
+    </div>
+
+    <!-- ── Main Content ──────────────────────────────────────── -->
+    <div class="chronicles-layout">
+      
+      <!-- List View -->
+      @if (!selectedLog()) {
+        <div class="logs-grid">
+          @if (isLoading()) {
+            <div class="loading-logs pixel-text">CARGANDO_ARCHIVOS...</div>
+          } @else {
+            @for (log of logs(); track log.id) {
+              <div class="log-card card" (click)="selectLog(log)">
+                <div class="log-card-header">
+                  <span class="log-date mono-text">{{ log.date }}</span>
+                  @if (log.isSeries) {
+                    <span class="log-badge mono-text"><ng-icon name="lucideFolder"></ng-icon> SERIE</span>
+                  }
+                </div>
+                <h3 class="log-title">{{ log.title }}</h3>
+                <p class="log-excerpt bio-text">{{ log.excerpt }}</p>
+                <div class="log-tags">
+                  @for (tag of log.tags; track tag) {
+                    <span class="tag mono-text">{{ tag }}</span>
+                  }
+                </div>
+              </div>
+            }
+          }
+        </div>
+      } 
+      
+      <!-- Detail View (Reader) -->
+      @else {
+        <div class="reader-panel card">
+          <button class="back-btn mono-text" (click)="backToList()">
+            <ng-icon name="lucideArrowLeft"></ng-icon> VOLVER_AL_INDICE
+          </button>
+
+          <div class="reader-header">
+            <h2 class="reader-title">{{ selectedLog()?.title }}</h2>
+            @if (selectedLog()?.isSeries && selectedLog()?.parts) {
+              <div class="chapter-info mono-text">
+                CAPÍTULO {{ currentChapterIndex() + 1 }} / {{ selectedLog()?.parts?.length }} : 
+                <span class="chapter-name">{{ selectedLog()?.parts![currentChapterIndex()].title }}</span>
+              </div>
+            }
+          </div>
+
+          <div class="reader-content">
+            <app-markdown-viewer [file]="getCurrentFile()"></app-markdown-viewer>
+          </div>
+
+          <!-- Series Navigation -->
+          @if (selectedLog()?.isSeries && selectedLog()?.parts) {
+            <div class="chapter-nav">
+              <button 
+                class="nav-btn mono-text" 
+                [disabled]="currentChapterIndex() === 0"
+                (click)="prevChapter()"
+              >
+                &lt; CAPÍTULO_ANTERIOR
+              </button>
+              <button 
+                class="nav-btn mono-text" 
+                [disabled]="currentChapterIndex() === selectedLog()!.parts!.length - 1"
+                (click)="nextChapter()"
+              >
+                SIGUIENTE_CAPÍTULO &gt;
+              </button>
+            </div>
+          }
+        </div>
+      }
+
+    </div>
+  </div>
+</section>

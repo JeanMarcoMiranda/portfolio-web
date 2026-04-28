@@ -1,0 +1,31 @@
+[
+  {
+    "id": "log-001",
+    "title": "Protocolos de Inicio: Mi primer Log",
+    "date": "2026-04-27",
+    "tags": ["INTRO", "SISTEMA"],
+    "excerpt": "Una breve introducción al sistema de Data Logs. Explorando el formato de registros.",
+    "isSeries": false,
+    "file": "log-001.md"
+  },
+  {
+    "id": "log-002",
+    "title": "Arquitectura Híbrida: Diario de Desarrollo",
+    "date": "2026-04-28",
+    "tags": ["ANGULAR", "DEV", "RPG"],
+    "excerpt": "Documentando el proceso de creación de una interfaz que fusiona elementos de juegos de rol con el desarrollo web moderno.",
+    "isSeries": true,
+    "parts": [
+      {
+        "id": "part-1",
+        "title": "El Concepto Inicial",
+        "file": "log-002-part1.md"
+      },
+      {
+        "id": "part-2",
+        "title": "Ejecución y Estilos",
+        "file": "log-002-part2.md"
+      }
+    ]
+  }
+]
