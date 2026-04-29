@@ -5,7 +5,7 @@ import { isPlatformBrowser } from '@angular/common';
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
-export type SectionId = 'home' | 'about' | 'projects' | 'contact' | 'chronicles';
+export type SectionId = 'home' | 'about' | 'projects' | 'contact' | 'blog';
 
 export interface ZoneData {
   id: SectionId;
@@ -18,7 +18,7 @@ export const ZONE_MAP: Record<SectionId, ZoneData> = {
   home:       { id: 'home',       zoneName: 'BASE__CAMP',       desc: 'Punto de spawn del jugador',  color: 'var(--color-primary)'       },
   about:      { id: 'about',      zoneName: 'CHARACTER_SHEET',  desc: 'Estadísticas del personaje',  color: 'var(--color-accent-teal)'   },
   projects:   { id: 'projects',   zoneName: 'QUEST__LOG',       desc: 'Misiones completadas',        color: 'var(--color-accent-amber)'  },
-  chronicles: { id: 'chronicles', zoneName: 'DATA__LOGS',       desc: 'Registros y entradas',        color: 'var(--color-zone-chronicles)'},
+  blog:       { id: 'blog',       zoneName: 'DATA__LOGS',       desc: 'Registros y entradas',        color: 'var(--color-zone-blog)'},
   contact:    { id: 'contact',    zoneName: 'COMM__HUB',        desc: 'Iniciar comunicación',        color: 'var(--color-zone-contact)'  },
 };
 
@@ -28,7 +28,7 @@ export const ZONE_MAP: Record<SectionId, ZoneData> = {
 export class NavigationService implements OnDestroy {
   private readonly platformId = inject(PLATFORM_ID);
 
-  readonly sections: SectionId[] = ['home', 'about', 'projects', 'chronicles', 'contact'];
+  readonly sections: SectionId[] = ['home', 'about', 'projects', 'blog', 'contact'];
 
   // ── Signals ───────────────────────────────────────────────────────────────
   currentSection  = signal<SectionId>('home');

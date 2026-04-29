@@ -1,13 +1,13 @@
 @use "sass:color";
 
-.chronicles-section {
+.blog-section {
   min-height: 100%;
   padding: 80px 0 80px;
   background-color: var(--color-bg);
-  --zone-accent: var(--color-zone-chronicles, #38bdf8);
+  --zone-accent: var(--color-zone-blog, #38bdf8);
 }
 
-.chronicles-header {
+.blog-header {
   margin-bottom: 3rem;
 
   .section-tag {
@@ -27,11 +27,11 @@
   }
 }
 
-.chronicles-layout {
+.blog-layout {
   opacity: 0;
   transform: translateY(20px);
 
-  .chronicles-section.is-visible & {
+  .blog-section.is-visible & {
     animation: slide-in-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
   }
 }
@@ -43,15 +43,15 @@
   }
 }
 
-// ── Logs Grid ──────────────────────────────────────────────────
+// ── Posts Grid ──────────────────────────────────────────────────
 
-.logs-grid {
+.posts-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1.5rem;
 }
 
-.loading-logs {
+.loading-posts {
   grid-column: 1 / -1;
   text-align: center;
   padding: 3rem;
@@ -60,7 +60,7 @@
   animation: blink 1.5s infinite;
 }
 
-.log-card {
+.post-card {
   cursor: pointer;
   transition: all var(--transition);
   border-color: rgba(56, 189, 248, 0.15);
@@ -75,18 +75,18 @@
   }
 }
 
-.log-card-header {
+.post-card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1rem;
 
-  .log-date {
+  .post-date {
     font-size: 0.7rem;
     color: var(--color-text-3);
   }
 
-  .log-badge {
+  .post-badge {
     display: inline-flex;
     align-items: center;
     gap: 4px;
@@ -99,20 +99,20 @@
   }
 }
 
-.log-title {
+.post-title {
   font-size: 1.25rem;
   color: var(--color-text-1);
   margin-bottom: 0.5rem;
   font-weight: 600;
 }
 
-.log-excerpt {
+.post-excerpt {
   flex-grow: 1;
   margin-bottom: 1.5rem;
   font-size: 0.85rem;
 }
 
-.log-tags {
+.post-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;

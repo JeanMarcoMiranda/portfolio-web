@@ -3,7 +3,7 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { marked } from 'marked';
 import DOMPurify from 'dompurify';
-import { ChroniclesService } from '../../services/chronicles.service';
+import { BlogService } from '../../services/blog.service';
 
 @Component({
   selector: 'app-markdown-viewer',
@@ -29,7 +29,7 @@ import { ChroniclesService } from '../../services/chronicles.service';
 export class MarkdownViewerComponent implements OnChanges {
   @Input({ required: true }) file!: string;
 
-  private readonly chroniclesService = inject(ChroniclesService);
+  private readonly blogService = inject(BlogService);
   private readonly sanitizer = inject(DomSanitizer);
   private readonly platformId = inject(PLATFORM_ID);
 
@@ -49,7 +49,7 @@ export class MarkdownViewerComponent implements OnChanges {
     this.isLoading.set(true);
     this.error.set(false);
 
-    this.chroniclesService.getLogContent(filename).subscribe({
+    this.blogService.getPostContent(filename).subscribe({
       next: async (content) => {
         try {
           const parsed = await marked.parse(content);

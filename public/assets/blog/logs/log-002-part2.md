@@ -15,7 +15,7 @@ Asignamos un color específico a cada "Zona" de la aplicación para guiar al usu
 ```scss
 // Ejemplo de Tokens
 :root {
-  --color-zone-chronicles: #38bdf8;
+  --color-zone-blog: #38bdf8;
   --font-pixel: 'Press Start 2P', system-ui;
 }
 ```

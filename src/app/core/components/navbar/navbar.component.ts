@@ -23,7 +23,7 @@ export class NavbarComponent {
     { id: 'home',       label: 'INICIO'     },
     { id: 'about',      label: 'STATS'      },
     { id: 'projects',   label: 'MISIONES'   },
-    { id: 'chronicles', label: 'DATA_LOGS'  },
+    { id: 'blog',       label: 'DATA_LOGS'  },
     { id: 'contact',    label: 'CONTACTO'   },
   ];
 

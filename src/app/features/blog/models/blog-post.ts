@@ -1,4 +1,4 @@
-export interface ChronicleLog {
+export interface BlogPost {
   id: string;
   title: string;
   date: string;

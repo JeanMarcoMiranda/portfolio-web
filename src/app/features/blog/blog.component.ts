@@ -1,38 +1,38 @@
 import { Component, computed, inject, signal, OnInit, PLATFORM_ID } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { NavigationService } from '../../core/services/navigation.service';
-import { ChroniclesService } from './services/chronicles.service';
-import { ChronicleLog } from './models/chronicle-log';
+import { BlogService } from './services/blog.service';
+import { BlogPost } from './models/blog-post';
 import { MarkdownViewerComponent } from './components/markdown-viewer/markdown-viewer.component';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { lucideFileText, lucideArrowLeft, lucideFolder } from '@ng-icons/lucide';
 
 @Component({
-  selector: 'app-chronicles',
+  selector: 'app-blog',
   standalone: true,
   imports: [CommonModule, MarkdownViewerComponent, NgIconComponent],
   providers: [provideIcons({ lucideFileText, lucideArrowLeft, lucideFolder })],
-  templateUrl: './chronicles.component.html',
-  styleUrl: './chronicles.component.scss'
+  templateUrl: './blog.component.html',
+  styleUrl: './blog.component.scss'
 })
-export class ChroniclesComponent implements OnInit {
+export class BlogComponent implements OnInit {
   private nav = inject(NavigationService);
-  private chroniclesService = inject(ChroniclesService);
+  private blogService = inject(BlogService);
   private platformId = inject(PLATFORM_ID);
 
-  sectionVisible = computed(() => this.nav.currentSection() === 'chronicles');
+  sectionVisible = computed(() => this.nav.currentSection() === 'blog');
 
-  logs = signal<ChronicleLog[]>([]);
-  selectedLog = signal<ChronicleLog | null>(null);
+  posts = signal<BlogPost[]>([]);
+  selectedPost = signal<BlogPost | null>(null);
   currentChapterIndex = signal(0);
 
   isLoading = signal(true);
 
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
-      this.chroniclesService.getRegistry().subscribe({
+      this.blogService.getRegistry().subscribe({
         next: (data) => {
-          this.logs.set(data);
+          this.posts.set(data);
           this.isLoading.set(false);
         },
         error: () => {
@@ -45,19 +45,19 @@ export class ChroniclesComponent implements OnInit {
     }
   }
 
-  selectLog(log: ChronicleLog) {
-    this.selectedLog.set(log);
+  selectPost(post: BlogPost) {
+    this.selectedPost.set(post);
     this.currentChapterIndex.set(0);
   }
 
   backToList() {
-    this.selectedLog.set(null);
+    this.selectedPost.set(null);
   }
 
   nextChapter() {
-    const log = this.selectedLog();
-    if (log?.isSeries && log.parts) {
-      if (this.currentChapterIndex() < log.parts.length - 1) {
+    const post = this.selectedPost();
+    if (post?.isSeries && post.parts) {
+      if (this.currentChapterIndex() < post.parts.length - 1) {
         this.currentChapterIndex.update(i => i + 1);
       }
     }
@@ -70,11 +70,11 @@ export class ChroniclesComponent implements OnInit {
   }
 
   getCurrentFile(): string {
-    const log = this.selectedLog();
-    if (!log) return '';
-    if (log.isSeries && log.parts) {
-      return log.parts[this.currentChapterIndex()].file;
+    const post = this.selectedPost();
+    if (!post) return '';
+    if (post.isSeries && post.parts) {
+      return post.parts[this.currentChapterIndex()].file;
     }
-    return log.file || '';
+    return post.file || '';
   }
 }

@@ -1,36 +1,36 @@
-<section class="chronicles-section section-scroll" id="chronicles" [class.is-visible]="sectionVisible()">
+<section class="blog-section section-scroll" id="blog" [class.is-visible]="sectionVisible()">
   <div class="container">
 
     <!-- ── Header ────────────────────────────────────────────── -->
-    <div class="section-header chronicles-header">
+    <div class="section-header blog-header">
       <span class="section-tag">05 — ARCHIVES</span>
       <h2 class="section-title">
         Data <span class="t-accent">Logs</span>
       </h2>
-      <p class="section-subtitle">Registros y Crónicas del Sistema</p>
+      <p class="section-subtitle">Registros y Entradas del Sistema</p>
     </div>
 
     <!-- ── Main Content ──────────────────────────────────────── -->
-    <div class="chronicles-layout">
+    <div class="blog-layout">
       
       <!-- List View -->
-      @if (!selectedLog()) {
-        <div class="logs-grid">
+      @if (!selectedPost()) {
+        <div class="posts-grid">
           @if (isLoading()) {
-            <div class="loading-logs pixel-text">CARGANDO_ARCHIVOS...</div>
+            <div class="loading-posts pixel-text">CARGANDO_ARCHIVOS...</div>
           } @else {
-            @for (log of logs(); track log.id) {
-              <div class="log-card card" (click)="selectLog(log)">
-                <div class="log-card-header">
-                  <span class="log-date mono-text">{{ log.date }}</span>
-                  @if (log.isSeries) {
-                    <span class="log-badge mono-text"><ng-icon name="lucideFolder"></ng-icon> SERIE</span>
+            @for (post of posts(); track post.id) {
+              <div class="post-card card" (click)="selectPost(post)">
+                <div class="post-card-header">
+                  <span class="post-date mono-text">{{ post.date }}</span>
+                  @if (post.isSeries) {
+                    <span class="post-badge mono-text"><ng-icon name="lucideFolder"></ng-icon> SERIE</span>
                   }
                 </div>
-                <h3 class="log-title">{{ log.title }}</h3>
-                <p class="log-excerpt bio-text">{{ log.excerpt }}</p>
-                <div class="log-tags">
-                  @for (tag of log.tags; track tag) {
+                <h3 class="post-title">{{ post.title }}</h3>
+                <p class="post-excerpt bio-text">{{ post.excerpt }}</p>
+                <div class="post-tags">
+                  @for (tag of post.tags; track tag) {
                     <span class="tag mono-text">{{ tag }}</span>
                   }
                 </div>
@@ -48,11 +48,11 @@
           </button>
 
           <div class="reader-header">
-            <h2 class="reader-title">{{ selectedLog()?.title }}</h2>
-            @if (selectedLog()?.isSeries && selectedLog()?.parts) {
+            <h2 class="reader-title">{{ selectedPost()?.title }}</h2>
+            @if (selectedPost()?.isSeries && selectedPost()?.parts) {
               <div class="chapter-info mono-text">
-                CAPÍTULO {{ currentChapterIndex() + 1 }} / {{ selectedLog()?.parts?.length }} : 
-                <span class="chapter-name">{{ selectedLog()?.parts![currentChapterIndex()].title }}</span>
+                CAPÍTULO {{ currentChapterIndex() + 1 }} / {{ selectedPost()?.parts?.length }} : 
+                <span class="chapter-name">{{ selectedPost()?.parts![currentChapterIndex()].title }}</span>
               </div>
             }
           </div>
@@ -62,7 +62,7 @@
           </div>
 
           <!-- Series Navigation -->
-          @if (selectedLog()?.isSeries && selectedLog()?.parts) {
+          @if (selectedPost()?.isSeries && selectedPost()?.parts) {
             <div class="chapter-nav">
               <button 
                 class="nav-btn mono-text" 
@@ -73,7 +73,7 @@
               </button>
               <button 
                 class="nav-btn mono-text" 
-                [disabled]="currentChapterIndex() === selectedLog()!.parts!.length - 1"
+                [disabled]="currentChapterIndex() === selectedPost()!.parts!.length - 1"
                 (click)="nextChapter()"
               >
                 SIGUIENTE_CAPÍTULO &gt;

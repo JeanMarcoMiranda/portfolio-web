@@ -5,7 +5,7 @@ import { NavbarComponent } from './core/components/navbar/navbar.component';
 import { PageTransitionComponent } from './core/components/page-transition/page-transition.component';
 import { NavigationService } from './core/services/navigation.service';
 import { ProjectsComponent } from './features/projects/projects.component';
-import { ChroniclesComponent } from './features/chronicles/chronicles.component';
+import { BlogComponent } from './features/blog/blog.component';
 import { ContactComponent } from './features/contact/contact.component';
 
 @Component({
@@ -15,7 +15,7 @@ import { ContactComponent } from './features/contact/contact.component';
     HeroComponent,
     AboutComponent,
     ProjectsComponent,
-    ChroniclesComponent,
+    BlogComponent,
     ContactComponent,
     NavbarComponent,
     PageTransitionComponent,
